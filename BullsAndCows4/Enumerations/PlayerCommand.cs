@@ -1,6 +1,6 @@
 ﻿namespace BullsAndCowsGame.Enumerations
 {
-    public enum PlayerCommand
+    internal enum PlayerCommand
     {
         Top,
         Restart,

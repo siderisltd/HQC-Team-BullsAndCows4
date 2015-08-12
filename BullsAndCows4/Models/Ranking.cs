@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
 
-    // tova raboti - testvano e, NE PIPAJJJJ!!!!!!!!
     public class Ranking<T> : IEnumerable<T>, IEnumerator<T> where T : IComparable<T>
     {
         private int maxCountOfStoredData;

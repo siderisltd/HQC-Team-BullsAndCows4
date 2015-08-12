@@ -1,8 +1,9 @@
 ﻿namespace BullsAndCowsGame.Models
 {
     using System;
+    using BullsAndCowsGame.Interfaces;
 
-    public class Player : IComparable<Player>
+    public class Player : IPlayer, IComparable<IPlayer>
     {
         public Player(string playerName, int attempts)
         {
@@ -14,7 +15,7 @@
 
         public int Attempts { get; set; }
 
-        public int CompareTo(Player other)
+        public int CompareTo(IPlayer other)
         {
             if (other == null)
             {

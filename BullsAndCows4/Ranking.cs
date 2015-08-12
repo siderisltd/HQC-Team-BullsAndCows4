@@ -14,9 +14,11 @@
 
         private int count;
 
-        public int Count
+        public Ranking(int aMaxCountOfStoredData)
         {
-            get { return this.count; }
+            this.maxCountOfStoredData = aMaxCountOfStoredData;
+            this.data = new T[this.maxCountOfStoredData];
+            this.count = 0;
         }
 
         public Ranking()
@@ -24,11 +26,35 @@
         {
         }
 
-        public Ranking(int aMaxCountOfStoredData)
+        public int Count
         {
-            this.maxCountOfStoredData = aMaxCountOfStoredData;
-            this.data = new T[this.maxCountOfStoredData];
-            this.count = 0;
+            get { return this.count; }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return this.data[this.position];
+            }
+        }
+
+        object System.Collections.IEnumerator.Current
+        {
+            get
+            {
+                return this.data[this.position];
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return (IEnumerator<T>)this;
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator<T>)this;
         }
 
         public void Add(T item)
@@ -54,35 +80,9 @@
             }
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return (IEnumerator<T>)this;
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return (IEnumerator<T>)this;
-        }
-
-        public T Current
-        {
-            get
-            {
-                return this.data[this.position];
-            }
-        }
-
         public void Dispose()
         {
             this.Reset();
-        }
-
-        object System.Collections.IEnumerator.Current
-        {
-            get
-            {
-                return this.data[this.position];
-            }
         }
 
         public bool MoveNext()

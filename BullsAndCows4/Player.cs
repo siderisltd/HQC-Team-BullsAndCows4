@@ -4,15 +4,15 @@
 
     public class Player : IComparable<Player>
     {
-        public string Name { get; set; }
-
-        public int Attempts { get; set; }
-
         public Player(string playerName, int attempts)
         {
             this.Name = playerName;
             this.Attempts = attempts;
         }
+
+        public string Name { get; set; }
+
+        public int Attempts { get; set; }
 
         public int CompareTo(Player other)
         {
@@ -21,7 +21,7 @@
                 return 1;
             }
 
-            return (other.Attempts - this.Attempts);
+            return other.Attempts - this.Attempts;
         }
     }
 }

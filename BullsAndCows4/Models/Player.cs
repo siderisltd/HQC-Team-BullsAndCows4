@@ -5,9 +5,9 @@
 
     public class Player : IPlayer, IComparable<IPlayer>
     {
-        public Player(string playerName, int attempts)
+        public Player(string name, int attempts)
         {
-            this.Name = playerName;
+            this.Name = name;
             this.Attempts = attempts;
         }
 

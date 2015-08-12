@@ -2,7 +2,7 @@
 {
     internal enum PlayerCommand
     {
-        Top,
+        TopScores,
         Restart,
         Help,
         Exit,

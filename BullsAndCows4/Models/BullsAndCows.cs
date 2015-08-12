@@ -1,10 +1,9 @@
-﻿using BullsAndCowsGame.Interfaces;
-
-namespace BullsAndCowsGame.Models
+﻿namespace BullsAndCowsGame.Models
 {
     using System;
     using System.Text;
     using BullsAndCowsGame.Enumerations;
+    using BullsAndCowsGame.Interfaces;
 
     public class BullsAndCows
     {
@@ -15,7 +14,7 @@ namespace BullsAndCowsGame.Models
 
         private const string WrongCommandMessage = "Incorrect guess or command!";
 
-        private const int NumberLength = 4;
+        private const int SecretNumberLength = 4;
 
         private string helpPattern;
 
@@ -25,6 +24,12 @@ namespace BullsAndCowsGame.Models
 
         private Ranking<IPlayer> rankList;
 
+        private int attempts = 0;
+
+        private int cheats = 0;
+
+        private bool isGameOver = false;
+
         public BullsAndCows()
         {
             this.rankList = new Ranking<IPlayer>();
@@ -32,96 +37,93 @@ namespace BullsAndCowsGame.Models
 
         public void Start()
         {
-            PlayerCommand enteredCommand;
-            do
-            {
+                PlayerCommand enteredCommand;
+
                 this.PrintMessageOnConsole(WellcomeMessage);
-                this.GenerateNumber();
+                this.GenerateComputerPlayerSecretNumber();
                 this.helpNumber = new StringBuilder("XXXX");
                 this.helpPattern = string.Empty;
 
-                int attempts = 0;
-                int cheats = 0;
+            while (!this.isGameOver)
+            {
+                Console.Write("Enter your guess or command: ");
+                var playerInput = Console.ReadLine();
+                enteredCommand = this.InputToCommand(playerInput);
+                this.ExecutePlayerCommand(enteredCommand);
 
-                do
+                if (enteredCommand == PlayerCommand.Other)
                 {
-                    Console.Write("Enter your guess or command: ");
-                    var playerInput = Console.ReadLine();
-                    enteredCommand = this.InputToCommand(playerInput);
+                    if (this.IsValidInput(playerInput))
+                    {
+                        this.attempts++;
+                        var bullsCount = this.CalculateBullsCount(playerInput, this.generatedNumber);
+                        var cowsCount = this.CalculateCowsCount(playerInput, this.generatedNumber);
 
-                    if (enteredCommand == PlayerCommand.Top)
-                    {
-                        this.PrintScoreboard();
-                    }
-                    else if (enteredCommand == PlayerCommand.Help)
-                    {
-                        cheats = this.ShowHelpMenu(cheats);
-                    }
-                    else
-                    {
-                        if (this.IsValidInput(playerInput))
+                        if (bullsCount == SecretNumberLength)
                         {
-                            attempts++;
-                            int bullsCount;
-                            int cowsCount;
-                            this.CalculateBullsAndCowsCount(playerInput, this.generatedNumber, out bullsCount, out cowsCount);
-                            if (bullsCount == NumberLength)
-                            {
-                                this.PrintWinningMessage(attempts, cheats);
-                                this.FinishGame(attempts, cheats);
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
-                            }
+                            this.PrintWinningMessage(this.attempts, this.cheats);
+                            this.FinishGame(this.attempts, this.cheats);
+                            break;
                         }
                         else
                         {
-                            if (enteredCommand != PlayerCommand.Restart && enteredCommand != PlayerCommand.Exit)
-                            {
-                                this.PrintMessageOnConsole(WrongCommandMessage);
-                            }
+                            Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
                         }
                     }
+                    else
+                    {
+                        this.PrintMessageOnConsole(WrongCommandMessage);
+                    }
                 }
-                while (enteredCommand != PlayerCommand.Exit && enteredCommand != PlayerCommand.Restart);
 
                 Console.WriteLine();
             }
-            while (enteredCommand != PlayerCommand.Exit);
 
-            Console.WriteLine("Good bye!");
+            Console.ReadLine();
         }
 
-        private void GenerateNumber()
+        private void GenerateComputerPlayerSecretNumber()
         {
-            var num = new StringBuilder(4);
-            var randomNumberGenerator = new Random(DateTime.Now.Millisecond);
+            var secretNumberLength = 4;
+            var secretNumber = string.Empty;
 
-            for (var i = 0; i < NumberLength; i++)
+            var numberBuilder = new StringBuilder();
+            var random = new Random();
+
+            for (var i = 0; i < secretNumberLength; i++)
             {
-                int randomDigit = randomNumberGenerator.Next(9);
-                num.Append(randomDigit);
+                int randomDigit = random.Next(1, 9);
+                var randomDigitToString = randomDigit.ToString();
+
+                if (!numberBuilder.ToString().Contains(randomDigitToString))
+                {
+                    numberBuilder.Append(randomDigit); 
+                }
+                else
+                {
+                    i--;
+                }
             }
 
-            this.generatedNumber = num.ToString();
+            secretNumber = numberBuilder.ToString();
+
+            // return secretNumber;
+            this.generatedNumber = numberBuilder.ToString();
         }
 
         private PlayerCommand InputToCommand(string input)
         {
             var command = new PlayerCommand();
-
             switch (input.ToLower())
             {
                 case "top":
-                    command = PlayerCommand.Top;
-                    break;
-                case "restart":
-                    command = PlayerCommand.Restart;
+                    command = PlayerCommand.TopScores;
                     break;
                 case "help":
                     command = PlayerCommand.Help;
+                    break;
+                case "restart":
+                    command = PlayerCommand.Restart;
                     break;
                 case "exit":
                     command = PlayerCommand.Exit;
@@ -133,6 +135,42 @@ namespace BullsAndCowsGame.Models
 
             return command;
         }  // Refactored
+
+        private void ExecutePlayerCommand(PlayerCommand command)
+        {
+            switch (command)
+            {
+                case PlayerCommand.TopScores:
+                    this.PrintScoreboard();
+                    break;
+                case PlayerCommand.Help:
+                    this.cheats = this.ShowHelpMenu(this.cheats);
+                    break;
+                case PlayerCommand.Restart:
+                    this.RestartGame();
+                    break;
+                case PlayerCommand.Exit:
+                    this.ExitGame();
+                    break;
+                case PlayerCommand.Other:
+                    break;
+                default:
+                    throw new ArgumentException("PlayerCommand has more values than predicted");
+                    break;
+            }
+        }
+
+        private void ExitGame()
+        {
+            this.isGameOver = true;
+        }
+
+        private void RestartGame()
+        {
+            Console.Clear();
+            var game = new BullsAndCows();
+            game.Start();
+        }
 
         private void PrintMessageOnConsole(string messageToPrint)
         {
@@ -168,6 +206,23 @@ namespace BullsAndCowsGame.Models
             return cheats;
         }
 
+        private void PrintScoreboard()
+        {
+            if (this.rankList.Count == 0)
+            {
+                Console.WriteLine("Top scoreboard is empty.");
+            }
+            else
+            {
+                Console.WriteLine("Scoreboard:");
+                int i = 1;
+                foreach (var player in this.rankList)
+                {
+                    Console.WriteLine("{0}. {1} --> {2} guess" + ((player.Attempts == 1) ? string.Empty : "es"), i++, player.Name, player.Attempts);
+                }
+            }
+        }
+
         private void RevealDigit(int cheats)
         {
             if (this.helpPattern == null)
@@ -194,43 +249,41 @@ namespace BullsAndCowsGame.Models
             this.helpPattern = helpPaterns[randomPaternNumber];
         }
 
-        private void CalculateBullsAndCowsCount(string playerInput, string generatedNumber, out int bullsCount, out int cowsCount)
+        private int CalculateBullsCount(string playerInput, string generatedNumber)
         {
-            bullsCount = 0;
-            cowsCount = 0;
-            var playerNumber = new StringBuilder(playerInput);
-            var number = new StringBuilder(generatedNumber);
-            for (var i = 0; i < playerNumber.Length; i++)
+            int bulls = 0;
+
+            for (var i = 0; i < SecretNumberLength; i++)
             {
-                if (playerNumber[i] == number[i])
+                if (playerInput[i] == generatedNumber[i])
                 {
-                    bullsCount++;
-                    playerNumber.Remove(i, 1);
-                    number.Remove(i, 1);
-                    i--;
+                    bulls++;
                 }
             }
 
-            for (int i = 0; i < playerNumber.Length; i++)
+            return bulls;
+        }
+
+        private object CalculateCowsCount(string playerInput, string generatedNumber)
+        {
+            var cows = 0;
+
+            for (var i = 0; i < SecretNumberLength; i++)
             {
-                for (int j = 0; j < number.Length; j++)
+                var currentDigitOfPlayerInputToString = playerInput[i].ToString();
+                if (generatedNumber.Contains(currentDigitOfPlayerInputToString)
+                   && (generatedNumber[i] != playerInput[i]))
                 {
-                    if (playerNumber[i] == number[j])
-                    {
-                        cowsCount++;
-                        playerNumber.Remove(i, 1);
-                        number.Remove(j, 1);
-                        j--;
-                        i--;
-                        break;
-                    }
+                    cows++;
                 }
             }
+
+            return cows;
         }
 
         private bool IsValidInput(string playerInput)
         {
-            if (playerInput == string.Empty || playerInput.Length != NumberLength)
+            if (playerInput == string.Empty || playerInput.Length != SecretNumberLength)
             {
                 return false;
             }
@@ -255,6 +308,7 @@ namespace BullsAndCowsGame.Models
                 string playerName = Console.ReadLine();
                 this.AddPlayerToScoreboard(playerName, attempts);
                 this.PrintScoreboard();
+                this.isGameOver = true;
             }
             else
             {
@@ -264,25 +318,8 @@ namespace BullsAndCowsGame.Models
 
         private void AddPlayerToScoreboard(string playerName, int attempts)
         {
-            Player player = new Player(playerName, attempts);
+            IPlayer player = new Player(playerName, attempts);
             this.rankList.Add(player);
-        }
-
-        private void PrintScoreboard()
-        {
-            if (this.rankList.Count == 0)
-            {
-                Console.WriteLine("Top scoreboard is empty.");
-            }
-            else
-            {
-                Console.WriteLine("Scoreboard:");
-                int i = 1;
-                foreach (Player p in this.rankList)
-                {
-                    Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Attempts == 1) ? string.Empty : "es"), i++, p.Name, p.Attempts);
-                }
-            }
         }
     }
 }

@@ -37,12 +37,12 @@
 
         public void Start()
         {
-                PlayerCommand enteredCommand;
+            PlayerCommand enteredCommand;
 
-                this.PrintMessageOnConsole(WellcomeMessage);
-                this.GenerateComputerPlayerSecretNumber();
-                this.helpNumber = new StringBuilder("XXXX");
-                this.helpPattern = string.Empty;
+            this.PrintMessageOnConsole(WellcomeMessage);
+            this.GenerateComputerPlayerSecretNumber();
+            this.helpNumber = new StringBuilder("XXXX");
+            this.helpPattern = string.Empty;
 
             while (!this.isGameOver)
             {
@@ -97,7 +97,7 @@
 
                 if (!numberBuilder.ToString().Contains(randomDigitToString))
                 {
-                    numberBuilder.Append(randomDigit); 
+                    numberBuilder.Append(randomDigit);
                 }
                 else
                 {

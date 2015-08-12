@@ -1,7 +1,8 @@
-﻿namespace BullsAndCowsGame
+﻿namespace BullsAndCowsGame.Models
 {
     using System;
     using System.Text;
+    using BullsAndCowsGame.Enumerations;
 
     public class BullsAndCows
     {
@@ -25,21 +26,6 @@
         public BullsAndCows()
         {
             this.klasirane = new Ranking<Player>();
-        }
-
-        private enum PlayerCommand
-        {
-            Top,
-            Restart,
-            Help,
-            Exit,
-            Other
-        }
-
-        public static void Main()
-        {
-            BullsAndCows game = new BullsAndCows();
-            game.Start();
         }
 
         public void Start()

@@ -60,9 +60,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BullsAndCows.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Ranking.cs" />
+    <Compile Include="Enumerations\PlayerCommand.cs" />
+    <Compile Include="Models\BullsAndCows.cs" />
+    <Compile Include="MainClass.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Ranking.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

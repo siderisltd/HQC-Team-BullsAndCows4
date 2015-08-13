@@ -62,16 +62,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleHelpers\ConsoleHelper.cs" />
+    <Compile Include="Console\ConsoleHelper.cs" />
+    <Compile Include="Engine\CommandManager.cs" />
+    <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Enumerations\PlayerCommand.cs" />
+    <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="Interfaces\ICommandManager.cs" />
+    <Compile Include="Interfaces\IGameEngine.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Models\BullsAndCows.cs" />
     <Compile Include="MainClass.cs" />
+    <Compile Include="Models\Commands\ExitGameCommand.cs" />
+    <Compile Include="Models\Commands\RestartGameCommand.cs" />
+    <Compile Include="Models\Commands\ShowHelpCommand.cs" />
+    <Compile Include="Models\Commands\ShowScoreBoardCommand.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Ranking.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

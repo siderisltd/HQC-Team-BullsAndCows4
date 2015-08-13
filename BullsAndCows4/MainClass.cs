@@ -2,7 +2,7 @@ namespace BullsAndCowsGame
 {
     using System;
     using BullsAndCowsGame.Models;
-    using BullsAndCowsGame.ConsoleHelpers;
+    using ConsoleUtills;
 
     public class MainClass
     {

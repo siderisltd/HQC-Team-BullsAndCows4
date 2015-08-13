@@ -2,11 +2,21 @@
 {
     using BullsAndCowsGame.Interfaces;
 
-    public class ShowScoreBoardCommand : ICommand
+    public class ShowScoreBoardCommand : ICommand, IScoreBoard
     {
         public void ProcessCommand(IGameEngine engine)
         {
-            engine.ShowScoreBoard();
+            this.Show();
+        }
+
+        public void Show()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

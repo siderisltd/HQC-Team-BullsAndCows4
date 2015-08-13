@@ -73,10 +73,13 @@
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\ICommandManager.cs" />
     <Compile Include="Interfaces\IGameEngine.cs" />
+    <Compile Include="Interfaces\IHelpMenu.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Interfaces\IScoreBoard.cs" />
     <Compile Include="Models\BullsAndCows.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Models\Commands\ExitGameCommand.cs" />
+    <Compile Include="Models\Commands\PauseGameCommand.cs" />
     <Compile Include="Models\Commands\RestartGameCommand.cs" />
     <Compile Include="Models\Commands\ShowHelpCommand.cs" />
     <Compile Include="Models\Commands\ShowScoreBoardCommand.cs" />
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="BullsAndCowsClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using System.Text.RegularExpressions;
     using BullsAndCowsGame.Enumerations;
     using BullsAndCowsGame.Interfaces;
 
@@ -53,7 +54,7 @@
 
                 if (enteredCommand == PlayerCommand.Other)
                 {
-                    if (this.IsValidInput(playerInput))
+                    if (this.IsValidNumberGuess(playerInput))
                     {
                         this.attempts++;
                         var bullsCount = this.CalculateBullsCount(playerInput, this.generatedNumber);
@@ -281,23 +282,13 @@
             return cows;
         }
 
-        private bool IsValidInput(string playerInput)
+        private bool IsValidNumberGuess(string playerInput)
         {
-            if (playerInput == string.Empty || playerInput.Length != SecretNumberLength)
-            {
-                return false;
-            }
+            var pattern = "^[1-9]{4}";
+            Regex regex = new Regex(pattern);
+            bool isValidNumberGuess = regex.IsMatch(playerInput);
 
-            for (int i = 0; i < playerInput.Length; i++)
-            {
-                char currentChar = playerInput[i];
-                if (!char.IsDigit(currentChar))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return isValidNumberGuess;
         }
 
         private void FinishGame(int attempts, int cheats)

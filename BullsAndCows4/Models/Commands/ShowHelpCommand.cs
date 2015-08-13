@@ -2,11 +2,16 @@
 {
     using BullsAndCowsGame.Interfaces;
 
-    public class ShowHelpCommand : ICommand
+    public class ShowHelpCommand : ICommand, IHelpMenu
     {
         public void ProcessCommand(IGameEngine engine)
         {
-            engine.ShowHelpMenu();
+            this.Show();
+        }
+
+        public void Show()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

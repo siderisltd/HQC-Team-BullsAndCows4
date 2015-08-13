@@ -7,7 +7,12 @@
     {
         public void ProcessCommand(IGameEngine engine)
         {
-            engine.ExitGame();
+            this.ExitGame();
+        }
+
+        private void ExitGame()
+        {
+            Environment.Exit(0);
         }
     }
 }

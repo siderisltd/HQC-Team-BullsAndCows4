@@ -4,15 +4,15 @@
     using System.Collections.Generic;
     using BullsAndCowsGame.Interfaces;
 
-    public sealed class GameEngine : IGameEngine
+    public sealed class GameEngine : IGameEngine, ICloneable
     {
         private IEnumerable<IPlayer> players;
 
-        private ICommandManager commandManager;
+        private readonly ICommandManager commandManager;
 
-        public GameEngine(ICommandManager commandManager, IEnumerable<IPlayer> players)
+        public GameEngine(IEnumerable<IPlayer> players)
         {
-            this.commandManager = commandManager;
+            this.commandManager = new CommandManager(this);
             this.players = players;
         }
 
@@ -20,9 +20,17 @@
         {
             while (true)
             {
-                var userInput = Console.ReadLine();
-                commandManager.ProcessCommand(userInput);
+                foreach (var player in players)
+                {
+                    var userInput = Console.ReadLine();
+                    commandManager.ProcessCommand(userInput, player);
+                }
             }
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

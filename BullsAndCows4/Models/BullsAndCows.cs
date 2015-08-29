@@ -38,7 +38,7 @@
 
         public void Start()
         {
-            PlayerCommand enteredCommand;
+            PlayerCommandType enteredCommand;
 
             this.PrintMessageOnConsole(WellcomeMessage);
             this.GenerateComputerPlayerSecretNumber();
@@ -52,7 +52,7 @@
                 enteredCommand = this.InputToCommand(playerInput);
                 this.ExecutePlayerCommand(enteredCommand);
 
-                if (enteredCommand == PlayerCommand.Other)
+                if (enteredCommand == PlayerCommandType.Other)
                 {
                     if (this.IsValidNumberGuess(playerInput))
                     {
@@ -112,48 +112,48 @@
             this.generatedNumber = numberBuilder.ToString();
         }
 
-        private PlayerCommand InputToCommand(string input)
+        private PlayerCommandType InputToCommand(string input)
         {
-            var command = new PlayerCommand();
+            var command = new PlayerCommandType();
             switch (input.ToLower())
             {
                 case "top":
-                    command = PlayerCommand.TopScores;
+                    command = PlayerCommandType.TopScores;
                     break;
                 case "help":
-                    command = PlayerCommand.Help;
+                    command = PlayerCommandType.Help;
                     break;
                 case "restart":
-                    command = PlayerCommand.Restart;
+                    command = PlayerCommandType.Restart;
                     break;
                 case "exit":
-                    command = PlayerCommand.Exit;
+                    command = PlayerCommandType.Exit;
                     break;
                 default:
-                    command = PlayerCommand.Other;
+                    command = PlayerCommandType.Other;
                     break;
             }
 
             return command;
         }  // Refactored
 
-        private void ExecutePlayerCommand(PlayerCommand command)
+        private void ExecutePlayerCommand(PlayerCommandType command)
         {
             switch (command)
             {
-                case PlayerCommand.TopScores:
+                case PlayerCommandType.TopScores:
                     this.PrintScoreboard();
                     break;
-                case PlayerCommand.Help:
+                case PlayerCommandType.Help:
                     this.cheats = this.ShowHelpMenu(this.cheats);
                     break;
-                case PlayerCommand.Restart:
+                case PlayerCommandType.Restart:
                     this.RestartGame();
                     break;
-                case PlayerCommand.Exit:
+                case PlayerCommandType.Exit:
                     this.ExitGame();
                     break;
-                case PlayerCommand.Other:
+                case PlayerCommandType.Other:
                     break;
                 default:
                     throw new ArgumentException("PlayerCommand has more values than predicted");
@@ -309,7 +309,7 @@
 
         private void AddPlayerToScoreboard(string playerName, int attempts)
         {
-            IPlayer player = new Player(playerName, attempts);
+            IPlayer player = new TestPlayer(playerName, attempts);
             this.rankList.Add(player);
         }
     }

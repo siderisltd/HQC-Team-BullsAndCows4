@@ -5,6 +5,7 @@
 
     public class PauseGameCommand : ICommand
     {
+
         public void ProcessCommand(IGameEngine engine)
         {
             this.PauseGame();

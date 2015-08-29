@@ -3,19 +3,19 @@
     using System;
     using BullsAndCowsGame.Interfaces;
 
-    public class Player : IPlayer, IComparable<IPlayer>
+    public abstract class Player : IPlayer, IComparable<IPlayer>
     {
-        public Player(string name, int attempts)
+        protected Player(string name)
         {
             this.Name = name;
-            this.Attempts = attempts;
+            this.Attempts = 0;
         }
 
-        public string Name { get; set; }
+        public abstract string Name { get; set; }
 
-        public int Attempts { get; set; }
+        public abstract int Attempts { get; set; }
 
-        public int CompareTo(IPlayer other)
+        public virtual int CompareTo(IPlayer other)
         {
             if (other == null)
             {

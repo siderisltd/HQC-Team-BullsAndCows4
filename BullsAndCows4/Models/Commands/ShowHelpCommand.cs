@@ -1,17 +1,19 @@
-﻿namespace BullsAndCowsGame.Models.Commands
+﻿using System;
+
+namespace BullsAndCowsGame.Models.Commands
 {
     using BullsAndCowsGame.Interfaces;
 
-    public class ShowHelpCommand : ICommand, IHelpMenu
+    public class ShowHelpCommand : ICommand
     {
         public void ProcessCommand(IGameEngine engine)
         {
-            this.Show();
+            this.ShowHelpMenu();
         }
 
-        public void Show()
+        private void ShowHelpMenu()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Showing help menu");
         }
     }
 }

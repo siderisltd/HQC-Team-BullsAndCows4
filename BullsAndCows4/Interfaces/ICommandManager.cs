@@ -2,6 +2,6 @@
 {
     public interface ICommandManager
     {
-        void ProcessCommand(string commandLine);
+        void ProcessCommand(string commandLine, IPlayer player);
     }
 }

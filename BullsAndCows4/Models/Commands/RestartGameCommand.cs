@@ -5,6 +5,12 @@
 
     public class RestartGameCommand : ICommand
     {
+        public RestartGameCommand()
+        {
+        }
+
+        //private IGameEngine engine;
+
         public void ProcessCommand(IGameEngine engine)
         {
             this.RestartGame(engine);

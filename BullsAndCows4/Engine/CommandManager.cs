@@ -1,4 +1,6 @@
-﻿namespace BullsAndCowsGame.Engine
+﻿using System.Runtime.CompilerServices;
+
+namespace BullsAndCowsGame.Engine
 {
     using System;
     using System.Globalization;
@@ -9,41 +11,48 @@
 
     public class CommandManager : ICommandManager
     {
-        private IGameEngine engine;
 
-        public CommandManager(IGameEngine engine)
+        public CommandManager(IGameEngine gameEngine)
         {
-            this.engine = engine;
+            this.engine = gameEngine;
         }
 
-        private readonly Dictionary<string, ICommand> commands = new Dictionary<string, ICommand>
-        {
-                { "top", new ShowScoreBoardCommand() },
-                { "help", new ShowHelpCommand() },
-                { "restart", new RestartGameCommand() },
-                { "exit", new ExitGameCommand() },
-                {"pause", new PauseGameCommand() }
-        };
+        private IGameEngine engine;
 
-        public void ProcessCommand(string userCommand)
+        private readonly IDictionary<string, ICommand> commands = new Dictionary<string, ICommand>
+                                                                   {
+                                                                        { "top", new ShowScoreBoardCommand() },
+                                                                        { "help", new ShowHelpCommand() },
+                                                                        { "restart", new RestartGameCommand() },
+                                                                        { "exit", new ExitGameCommand() },
+                                                                        { "pause", new PauseGameCommand() },
+                                                                        { "processNumber", new ProcessNumberCommand(IPlayer player, int number) }
+                                                                   };
+
+        public void ProcessCommand(string userCommand, IPlayer player)
         {
             if (!this.commands.ContainsKey(userCommand))
             {
-                var isValidNumberGuess = IsValidNumberGuess(userCommand);
-                throw new NotImplementedException();
+                this.IsValidNumberGuess(userCommand);
+                var playerGuessNumber = int.Parse(userCommand);
+                userCommand = "processNumber";
             }
             string userCommandToLower = userCommand.ToLower();
             ICommand command = this.commands[userCommandToLower];
             command.ProcessCommand(engine);
+
         }
 
-        private bool IsValidNumberGuess(string playerInput)
+        private void IsValidNumberGuess(string playerInput)
         {
             var pattern = "^[1-9]{4}";
             Regex regex = new Regex(pattern);
             bool isValidNumberGuess = regex.IsMatch(playerInput);
 
-            return isValidNumberGuess;
+            if (!isValidNumberGuess)
+            {
+                throw new ArgumentException("Invalid number guess should be handled");
+            }
         }
     }
 }

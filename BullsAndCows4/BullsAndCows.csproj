@@ -69,7 +69,8 @@
   <ItemGroup>
     <Compile Include="Engine\CommandManager.cs" />
     <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="Enumerations\PlayerCommand.cs" />
+    <Compile Include="Enumerations\GameType.cs" />
+    <Compile Include="Enumerations\PlayerCommandType.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\ICommandManager.cs" />
     <Compile Include="Interfaces\IGameEngine.cs" />
@@ -78,13 +79,19 @@
     <Compile Include="Interfaces\IScoreBoard.cs" />
     <Compile Include="Models\BullsAndCows.cs" />
     <Compile Include="MainClass.cs" />
+    <Compile Include="Models\Commands\Command.cs" />
     <Compile Include="Models\Commands\ExitGameCommand.cs" />
     <Compile Include="Models\Commands\PauseGameCommand.cs" />
+    <Compile Include="Models\Commands\ProcessNumberCommand.cs" />
     <Compile Include="Models\Commands\RestartGameCommand.cs" />
     <Compile Include="Models\Commands\ShowHelpCommand.cs" />
     <Compile Include="Models\Commands\ShowScoreBoardCommand.cs" />
+    <Compile Include="Models\ComputerPlayer.cs" />
+    <Compile Include="Models\HumanPlayer.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Ranking.cs" />
+    <Compile Include="Models\TestPlayer.cs" />
+    <Compile Include="PlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />

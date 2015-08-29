@@ -1,22 +1,24 @@
-﻿namespace BullsAndCowsGame.Models.Commands
+﻿using System;
+
+namespace BullsAndCowsGame.Models.Commands
 {
     using BullsAndCowsGame.Interfaces;
 
-    public class ShowScoreBoardCommand : ICommand, IScoreBoard
+    public class ShowScoreBoardCommand : ICommand
     {
         public void ProcessCommand(IGameEngine engine)
         {
             this.Show();
         }
 
-        public void Show()
+        private void Show()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Showing scoreboard");
         }
 
-        public void Clear()
+        private void Clear()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Hiding scoreboard");
         }
     }
 }

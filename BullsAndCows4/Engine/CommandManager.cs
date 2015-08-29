@@ -26,7 +26,7 @@ namespace BullsAndCowsGame.Engine
                                                                         { "restart", new RestartGameCommand() },
                                                                         { "exit", new ExitGameCommand() },
                                                                         { "pause", new PauseGameCommand() },
-                                                                        { "processNumber", new ProcessNumberCommand(IPlayer player, int number) }
+                                                                        { "processNumber", new ProcessNumberCommand() }
                                                                    };
 
         public void ProcessCommand(string userCommand, IPlayer player)

@@ -3,9 +3,9 @@
     using System;
     using BullsAndCowsGame.Interfaces;
 
-    public class ExitGameCommand : ICommand
+    public class ExitGameCommand : Command, ICommand
     {
-        public void ProcessCommand(IGameEngine engine)
+        public override void ProcessCommand(IPlayer player, IGameEngine engine)
         {
             this.ExitGame();
         }

@@ -2,6 +2,6 @@
 {
     public interface ICommand
     {
-        void ProcessCommand(IGameEngine engine);
+        void ProcessCommand(IPlayer player, IGameEngine engine);
     }
 }

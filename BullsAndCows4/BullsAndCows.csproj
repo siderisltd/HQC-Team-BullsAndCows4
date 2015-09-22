@@ -71,6 +71,13 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Enumerations\GameType.cs" />
     <Compile Include="Enumerations\PlayerCommandType.cs" />
+    <Compile Include="Interfaces\IMessageLogger.cs" />
+    <Compile Include="Models\ConsoleLogger.cs" />
+    <Compile Include="Resources\GameMessagesResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameMessagesResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\ICommandManager.cs" />
     <Compile Include="Interfaces\IGameEngine.cs" />
@@ -105,6 +112,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="BullsAndCowsClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\GameMessagesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GameMessagesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

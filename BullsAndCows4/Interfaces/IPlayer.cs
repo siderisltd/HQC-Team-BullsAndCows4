@@ -7,5 +7,7 @@
         string Name { get; set; }
 
         int Attempts { get; set; }
+
+        string GuessNumber { get; set; }
     }
 }

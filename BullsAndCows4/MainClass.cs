@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using BullsAndCowsGame.Engine;
 using BullsAndCowsGame.Enumerations;
@@ -18,16 +17,20 @@ namespace BullsAndCowsGame
             byte fontSize = 5;
             var splashScreenPath = @"..//..//Files/BullsAndCowsSplashScreen.txt";
 
-            
-
+            //builder pattern TODO: 
             ConsoleHelper.Instance.SetConsoleFont(fontSize);
             ConsoleHelper.Instance.SetMaxWidth();
             ConsoleHelper.Instance.SetMaxHeight();
             ConsoleHelper.Instance.CenterConsole();
- 
             ConsoleDrawEngine.DrawSplashScreen(splashScreenPath);
 
+
+
             //simple factory pattern to select players
+            Console.WriteLine("0. Single player");
+            Console.WriteLine("1. Multi player");
+
+
             string userInput = Console.ReadLine();
             int userInputAsInteger = 0;
             
@@ -36,11 +39,12 @@ namespace BullsAndCowsGame
                 int.TryParse(userInput, out userInputAsInteger);
             }
 
-
+            IMessageLogger messageLogger = new ConsoleLogger();
             var gameType = (GameType)userInputAsInteger;
-            ICollection<IPlayer> players = PlayerFactory.CreatePlayers(gameType);
+            ICollection<IPlayer> players = PlayerFactory.CreatePlayers(gameType, messageLogger);
+            ICommandManager commandManager = new CommandManager(messageLogger);
 
-            IGameEngine engine = new GameEngine(players);
+            IGameEngine engine = new GameEngine(players, commandManager, gameType, messageLogger);
             engine.StartGame();
 
     

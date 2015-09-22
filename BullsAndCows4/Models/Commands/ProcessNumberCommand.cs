@@ -3,22 +3,66 @@ using BullsAndCowsGame.Interfaces;
 
 namespace BullsAndCowsGame.Models.Commands
 {
-    internal class ProcessNumberCommand : ICommand
+    internal class ProcessNumberCommand : Command, ICommand
     {
-        public void ProcessCommand(IGameEngine engine)
+        public override void ProcessCommand(IPlayer player, IGameEngine engine)
         {
-            //command processed
+            this.ProcessPlayerNumberGuess(player);
         }
 
-        public void ProcessCommand(IPlayer player,  int playerGuessNumber)
+        private void ProcessPlayerNumberGuess(IPlayer player)
         {
-            this.ProcessPlayerNumberGuess(player, playerGuessNumber);
+            var guessNumber = player.GuessNumber;
+
+            //TODO Configure otherPlayer
+            var otherPlayerSecretNumber = "1234";
+
+            Console.WriteLine("ImplementPlayerGuess");
+
+            var bullsCount = this.CalculateBullsCount(guessNumber, otherPlayerSecretNumber);
+            var cowsCount = this.CalculateCowsCount(guessNumber, otherPlayerSecretNumber);
+
+            Console.WriteLine("{0} bulls    {1} cows", bullsCount, cowsCount);;
+
         }
 
-        private string ProcessPlayerNumberGuess(IPlayer player, int playerGuessNumber)
+
+        private int CalculateBullsCount(string guessNumber, string otherPlayerSecretNumber)
         {
-            //logic for processing command
-            return "command suxess";
+            int bulls = 0;
+            int length = otherPlayerSecretNumber.Length;
+
+            for (var i = 0; i < length; i++)
+            {
+                if (guessNumber[i] == otherPlayerSecretNumber[i])
+                {
+                    bulls++;
+                }
+            }
+
+            return bulls;
         }
+
+        private int CalculateCowsCount(string guessNumber, string otherPlayerSecretNumber)
+        {
+            var cows = 0;
+            int length = otherPlayerSecretNumber.Length;
+
+            for (var i = 0; i < length; i++)
+            {
+                var currentDigitOfPlayerInputToString = guessNumber[i].ToString();
+
+                if (otherPlayerSecretNumber.Contains(currentDigitOfPlayerInputToString)
+                   && (otherPlayerSecretNumber[i] != guessNumber[i]))
+                {
+                    cows++;
+                }
+            }
+
+            return cows;
+        }
+
+
+
     }
 }

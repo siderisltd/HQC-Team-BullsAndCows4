@@ -11,10 +11,11 @@ namespace BullsAndCowsGame.Engine
 
     public class CommandManager : ICommandManager
     {
+        private readonly IMessageLogger logger;
 
-        public CommandManager(IGameEngine gameEngine)
+        public CommandManager(IMessageLogger logger)
         {
-            this.engine = gameEngine;
+            this.logger = logger;
         }
 
         private IGameEngine engine;
@@ -26,33 +27,41 @@ namespace BullsAndCowsGame.Engine
                                                                         { "restart", new RestartGameCommand() },
                                                                         { "exit", new ExitGameCommand() },
                                                                         { "pause", new PauseGameCommand() },
-                                                                        { "processNumber", new ProcessNumberCommand() }
+                                                                        { "processnumber", new ProcessNumberCommand() }
                                                                    };
 
         public void ProcessCommand(string userCommand, IPlayer player)
         {
-            if (!this.commands.ContainsKey(userCommand))
+            var isValidNumberGuess = this.IsValidNumberGuess(userCommand);
+
+            if (isValidNumberGuess)
             {
-                this.IsValidNumberGuess(userCommand);
-                var playerGuessNumber = int.Parse(userCommand);
+                player.GuessNumber = userCommand;
                 userCommand = "processNumber";
             }
             string userCommandToLower = userCommand.ToLower();
-            ICommand command = this.commands[userCommandToLower];
-            command.ProcessCommand(engine);
+
+            var isValidCommand = this.commands.ContainsKey(userCommandToLower);
+
+            if (isValidCommand)
+            {
+                ICommand command = this.commands[userCommandToLower];
+                command.ProcessCommand(player, this.engine);
+            }
+            else
+            {
+                logger.LogMessage(Resources.GameMessagesResources.InvalidCommand);
+            }
 
         }
 
-        private void IsValidNumberGuess(string playerInput)
+        private bool IsValidNumberGuess(string playerInput)
         {
-            var pattern = "^[1-9]{4}";
+            var pattern = "^[1-9]{4}$";
             Regex regex = new Regex(pattern);
             bool isValidNumberGuess = regex.IsMatch(playerInput);
 
-            if (!isValidNumberGuess)
-            {
-                throw new ArgumentException("Invalid number guess should be handled");
-            }
+            return isValidNumberGuess;
         }
     }
 }

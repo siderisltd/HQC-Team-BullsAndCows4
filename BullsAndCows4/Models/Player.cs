@@ -2,6 +2,7 @@
 {
     using System;
     using BullsAndCowsGame.Interfaces;
+    using System.Collections.Generic;
 
     public abstract class Player : IPlayer, IComparable<IPlayer>
     {
@@ -11,9 +12,13 @@
             this.Attempts = 0;
         }
 
+        public ICollection<string> GuessedNumbers { get; }
+
         public abstract string Name { get; set; }
 
         public abstract int Attempts { get; set; }
+
+        public string GuessNumber { get; set; }
 
         public virtual int CompareTo(IPlayer other)
         {
@@ -23,6 +28,11 @@
             }
 
             return other.Attempts - this.Attempts;
+        }
+
+        public void AddGuessNumber()
+        {
+            
         }
     }
 }

@@ -265,7 +265,7 @@
             return bulls;
         }
 
-        private object CalculateCowsCount(string playerInput, string generatedNumber)
+        private int CalculateCowsCount(string playerInput, string generatedNumber)
         {
             var cows = 0;
 

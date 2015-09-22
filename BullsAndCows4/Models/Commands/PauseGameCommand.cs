@@ -3,10 +3,10 @@
     using System;
     using BullsAndCowsGame.Interfaces;
 
-    public class PauseGameCommand : ICommand
+    public class PauseGameCommand : Command, ICommand
     {
 
-        public void ProcessCommand(IGameEngine engine)
+        public override void ProcessCommand(IPlayer player, IGameEngine engine)
         {
             this.PauseGame();
         }

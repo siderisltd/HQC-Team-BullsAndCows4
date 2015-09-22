@@ -4,21 +4,23 @@ namespace BullsAndCowsGame.Models.Commands
 {
     using BullsAndCowsGame.Interfaces;
 
-    public class ShowScoreBoardCommand : ICommand
+    public class ShowScoreBoardCommand : Command, ICommand
     {
-        public void ProcessCommand(IGameEngine engine)
+        public override void ProcessCommand(IPlayer player, IGameEngine engine)
         {
             this.Show();
         }
 
         private void Show()
         {
-            Console.WriteLine("Showing scoreboard");
-        }
+            //pazim state na obektite predi show state 
 
-        private void Clear()
-        {
-            Console.WriteLine("Hiding scoreboard");
+            // davame help menu na console.clear
+
+            // vrushtame sled nqkoi key obektite v state predi help menu to 
+
+            Console.Clear();
+            Console.WriteLine("SCOREBOARD SHOWED");
         }
     }
 }

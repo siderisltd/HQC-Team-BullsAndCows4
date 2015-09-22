@@ -1,7 +1,10 @@
 ﻿namespace BullsAndCowsGame.Models.Commands
 {
-    internal abstract class Command
+    using System;
+    using BullsAndCowsGame.Interfaces;
+
+    public abstract class Command : ICommand
     {
-        public abstract void ProcessCommand();
+        public abstract void ProcessCommand(IPlayer player, IGameEngine engine);
     }
 }

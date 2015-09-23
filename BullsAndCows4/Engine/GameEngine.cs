@@ -7,7 +7,7 @@ namespace BullsAndCowsGame.Engine
     using System.Collections.Generic;
     using BullsAndCowsGame.Interfaces;
 
-    public sealed class GameEngine : IGameEngine
+    public sealed class GameEngine : IGameEngine, IDisposable
     {
         private IEnumerable<IPlayer> players;
 
@@ -23,7 +23,7 @@ namespace BullsAndCowsGame.Engine
 
         private readonly ICommandManager commandManager;
 
-        private readonly IMessageLogger logger;
+        public readonly IMessageLogger logger;
 
         public GameEngine(IEnumerable<IPlayer> players, ICommandManager commandManager, GameType mode, IMessageLogger logger)
         {
@@ -46,8 +46,8 @@ namespace BullsAndCowsGame.Engine
             while (!this.IsGameFinished)
             {
                 IPlayer player = this.GetPlayerOnTurn(this.Players, playerNumber);
-                logger.LogMessage(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
-                logger.LogMessage(Resources.GameMessagesResources.EnterInputNumberOrCommand);
+                logger.LogMessageAndGoNextLine(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
+                logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
                 var userInput = Console.ReadLine(); //TODO: remove console stuffs
                 commandManager.ProcessCommand(userInput, player);
                 if (this.Mode == GameType.MultiPlayer)
@@ -79,6 +79,11 @@ namespace BullsAndCowsGame.Engine
             {
                 throw new ArgumentException("Players must be exactly 2");
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

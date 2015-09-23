@@ -47,12 +47,12 @@ namespace BullsAndCowsGame.Engine
             if (isValidCommand)
             {
                 ICommand command = this.commands[userCommandToLower];
-                command.ProcessCommand(player, this.engine);
+                command.ProcessCommand(this.engine);
             }
             else
             {
-                logger.LogMessage(Resources.GameMessagesResources.InvalidCommand);
-                logger.LogMessage(Resources.GameMessagesResources.EnterInputNumberOrCommand);
+                logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.InvalidCommand);
+                logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
                 var newCommand = Console.ReadLine();
                 this.ProcessCommand(newCommand, player);
             }
@@ -64,7 +64,7 @@ namespace BullsAndCowsGame.Engine
             var pattern = "^[1-9]{4}$";
             Regex regex = new Regex(pattern);
             bool isValidNumberGuess = regex.IsMatch(playerInput);
-
+            //TODO make non repeatable numbers pattern
             return isValidNumberGuess;
         }
 

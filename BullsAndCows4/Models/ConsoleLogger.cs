@@ -6,9 +6,24 @@ namespace BullsAndCowsGame.Models
 
     internal class ConsoleLogger : IMessageLogger
     {
-        public void LogMessage(string message)
+        public void LogMessageAndGoNextLine(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void LogMessageOnSameLine(string message)
+        {
+            Console.Write(message);
+        }
+
+        public string ReadMessage()
+        {
+            return Console.ReadLine();
+        }
+
+        public ConsoleKeyInfo ReadKey(bool intercept)
+        {
+            return Console.ReadKey(intercept);
         }
     }
 }

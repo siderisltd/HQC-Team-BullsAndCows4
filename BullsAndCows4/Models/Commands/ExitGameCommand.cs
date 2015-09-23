@@ -5,7 +5,7 @@
 
     public class ExitGameCommand : Command, ICommand
     {
-        public override void ProcessCommand(IPlayer player, IGameEngine engine)
+        public override void ProcessCommand(IGameEngine engine)
         {
             this.ExitGame();
         }

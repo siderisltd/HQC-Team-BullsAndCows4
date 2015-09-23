@@ -2,21 +2,25 @@
 {
     using System;
     using BullsAndCowsGame.Interfaces;
+    using BullsAndCowsGame.Engine;
 
     public class PauseGameCommand : Command, ICommand
     {
 
-        public override void ProcessCommand(IPlayer player, IGameEngine engine)
+        public override void ProcessCommand(IGameEngine engine)
         {
-            this.PauseGame();
+            this.PauseGame(engine);
         }
 
-        private void PauseGame()
+        private void PauseGame(IGameEngine engine)
         {
-            Console.WriteLine("Game is paused press [esc] to unpause");
+            var engineAsConcreteEngine = engine as GameEngine;
+            engineAsConcreteEngine.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
+
             var keyPressed = Console.ReadKey();
             while (keyPressed.Key != ConsoleKey.Escape)
             {
+                engineAsConcreteEngine.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
                 keyPressed = Console.ReadKey();
             }
         }

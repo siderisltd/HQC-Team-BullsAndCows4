@@ -7,25 +7,29 @@ namespace BullsAndCowsGame.Models.Commands
 {
     internal class ProcessNumberCommand : Command, ICommand
     {
-        public override void ProcessCommand(IPlayer player, IGameEngine engine)
+        public override void ProcessCommand(IGameEngine engine)
         {
-            this.ProcessPlayerNumberGuess(player, engine);
+            this.ProcessPlayerNumberGuess(engine);
         }
 
-        private void ProcessPlayerNumberGuess(IPlayer player, IGameEngine engine)
+        private void ProcessPlayerNumberGuess(IGameEngine engine)
         {
             var asConcreteEngine = engine as GameEngine;
-            var guessNumber = player.GuessNumber;
+
+            var currentPlayer = asConcreteEngine.Players.AsQueryable().Where(x => x.IsOnTurn == true).FirstOrDefault();
+            var guessNumber = currentPlayer.GuessNumber;
 
             IPlayer enemyPlayer = asConcreteEngine.Players.AsQueryable().Where(x => x.IsOnTurn == false).FirstOrDefault();
-
 
             var otherPlayerSecretNumber = enemyPlayer.GetSecretNumber;
 
             var bullsCount = this.CalculateBullsCount(guessNumber, otherPlayerSecretNumber);
             var cowsCount = this.CalculateCowsCount(guessNumber, otherPlayerSecretNumber);
 
-            Console.WriteLine("{0} bulls    {1} cows", bullsCount, cowsCount);
+            var bullsAndCowsGameAnswer = bullsCount + " " + Resources.GameMessagesResources.Bulls + " " +
+                                         cowsCount + " " + Resources.GameMessagesResources.Cows;
+
+            asConcreteEngine.logger.LogMessageAndGoNextLine(bullsAndCowsGameAnswer);
 
             if (bullsCount == 4)
             {
@@ -68,8 +72,5 @@ namespace BullsAndCowsGame.Models.Commands
 
             return cows;
         }
-
-
-
     }
 }

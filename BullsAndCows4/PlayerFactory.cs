@@ -14,8 +14,6 @@ namespace BullsAndCowsGame
 
     internal static class PlayerFactory
     {
-        private static readonly string computerName = "BullBot";
-
         private static IMessageLogger logger;
 
         internal static ICollection<IPlayer> CreatePlayers(GameType gameType, IMessageLogger messageLogger)
@@ -26,27 +24,15 @@ namespace BullsAndCowsGame
             switch (gameType)
             {
                 case GameType.SinglePlayer:
-                    logger.LogMessage(Resources.GameMessagesResources.ChooseHumanPlayerName);
-                    var playerName = Console.ReadLine();
-                    var secretNumber = EnterSecretNumber();
-                    var humanPlayer = new HumanPlayer(playerName, secretNumber);
-                    logger.LogMessage(Resources.GameMessagesResources.ChooseBotPlayerName);
-                    var botName = Console.ReadLine(); //TODO:  remove coupled ReadLine
-                    var botSecretNumber = GenerateSecretNumber();
-                    var computerPlayer = new ComputerPlayer(botName, botSecretNumber);
+                    var humanPlayer = CreateHumanPlayer();
+                    var computerPlayer = CreateComputerPlayer();
                     players.Add(humanPlayer);
                     players.Add(computerPlayer);
                     break;
 
                 case GameType.MultiPlayer:
-                    logger.LogMessage(Resources.GameMessagesResources.ChooseHumanPlayerName);
-                    var firstPlayerName = Console.ReadLine();
-                    var firstPlayerSecretNumber = EnterSecretNumber();
-                    var firstPlayer = new HumanPlayer(firstPlayerName, firstPlayerSecretNumber);
-                    logger.LogMessage(Resources.GameMessagesResources.ChooseHumanPlayerName);
-                    var secondPlayerName = Console.ReadLine();
-                    var secondPlayerSecretNumber = EnterSecretNumber();
-                    var secondPlayer = new HumanPlayer(secondPlayerName, secondPlayerSecretNumber);
+                    var firstPlayer = CreateHumanPlayer();
+                    var secondPlayer = CreateHumanPlayer();
                     players.Add(firstPlayer);
                     players.Add(secondPlayer);
                     break;
@@ -55,6 +41,24 @@ namespace BullsAndCowsGame
             }
 
             return players;
+        }
+
+        private static IPlayer CreateComputerPlayer()
+        {
+            logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseBotPlayerName);
+            var botName = logger.ReadMessage(); //TODO:  remove coupled ReadLine
+            var botSecretNumber = GenerateSecretNumber();
+            var computerPlayer = new ComputerPlayer(botName, botSecretNumber);
+            return computerPlayer;
+        }
+
+        private static IPlayer CreateHumanPlayer()
+        {
+            logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseHumanPlayerName);
+            var playerName = logger.ReadMessage();
+            var secretNumber = EnterSecretNumber();
+            var humanPlayer = new HumanPlayer(playerName, secretNumber);
+            return humanPlayer;
         }
 
         private static string GenerateSecretNumber()
@@ -87,23 +91,23 @@ namespace BullsAndCowsGame
 
         private static string EnterSecretNumber()
         {
-            logger.LogMessage(Resources.GameMessagesResources.EnterSecretNumberMessage);
+            logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterSecretNumberMessage);
             string secretNumber = string.Empty;
             ConsoleKeyInfo key;
             do
             {
-                key = Console.ReadKey(true);
+                key = logger.ReadKey(true);
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     secretNumber += key.KeyChar;
-                    Console.Write("*");
+                    logger.LogMessageOnSameLine("*");
                 }
                 if (key.Key == ConsoleKey.Backspace)
                 {
                     if (secretNumber.Length > 0)
                     {
                         secretNumber = secretNumber.Substring(0, (secretNumber.Length - 1));
-                        Console.Write("\b \b");
+                        logger.LogMessageOnSameLine("\b \b");
                     }
                 }
             }

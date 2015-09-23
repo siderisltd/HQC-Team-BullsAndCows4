@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace BullsAndCowsGame.Interfaces
+﻿namespace BullsAndCowsGame.Interfaces
 {
-    public interface IGameEngine
+    using System;
+
+    public interface IGameEngine : IDisposable
+
     {
         void StartGame();
     }

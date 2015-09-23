@@ -61,6 +61,15 @@ namespace BullsAndCowsGame.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulls.
+        /// </summary>
+        internal static string Bulls {
+            get {
+                return ResourceManager.GetString("Bulls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Bot Player Name.
         /// </summary>
         internal static string ChooseBotPlayerName {
@@ -75,6 +84,15 @@ namespace BullsAndCowsGame.Resources {
         internal static string ChooseHumanPlayerName {
             get {
                 return ResourceManager.GetString("ChooseHumanPlayerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cows.
+        /// </summary>
+        internal static string Cows {
+            get {
+                return ResourceManager.GetString("Cows", resourceCulture);
             }
         }
         
@@ -97,6 +115,15 @@ namespace BullsAndCowsGame.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help menu.
+        /// </summary>
+        internal static string HelpMenu {
+            get {
+                return ResourceManager.GetString("HelpMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Command.
         /// </summary>
         internal static string InvalidCommand {
@@ -106,11 +133,56 @@ namespace BullsAndCowsGame.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press [1] for Multi-player game.
+        /// </summary>
+        internal static string MultiplayerGame {
+            get {
+                return ResourceManager.GetString("MultiplayerGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause.
+        /// </summary>
+        internal static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;s turn.
         /// </summary>
         internal static string PlayerTurnMessage {
             get {
                 return ResourceManager.GetString("PlayerTurnMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press [0] for Single-player game.
+        /// </summary>
+        internal static string SinglePlayerGame {
+            get {
+                return ResourceManager.GetString("SinglePlayerGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting a new game.
+        /// </summary>
+        internal static string StartingNewGame {
+            get {
+                return ResourceManager.GetString("StartingNewGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game is paused press [esc] to unpause.
+        /// </summary>
+        internal static string UnpauseMessage {
+            get {
+                return ResourceManager.GetString("UnpauseMessage", resourceCulture);
             }
         }
         

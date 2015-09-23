@@ -5,6 +5,6 @@
 
     public abstract class Command : ICommand
     {
-        public abstract void ProcessCommand(IPlayer player, IGameEngine engine);
+        public abstract void ProcessCommand(IGameEngine engine);
     }
 }

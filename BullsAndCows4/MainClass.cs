@@ -1,20 +1,21 @@
-using System;
-using System.Collections.Generic;
-using BullsAndCowsGame.Engine;
-using BullsAndCowsGame.Enumerations;
-using BullsAndCowsGame.Interfaces;
-
 namespace BullsAndCowsGame
 {
+    using System;
+    using System.Collections.Generic;
+    using BullsAndCowsGame.Engine;
+    using BullsAndCowsGame.Enumerations;
+    using BullsAndCowsGame.Interfaces;
     using BullsAndCowsGame.Models;
     using ConsoleUtills;
 
 
-    public class MainClass
+    internal static class MainClass
     {
-        public static void Main()
+        internal static void Main()
         {
             byte fontSize = 5;
+
+            //TODO: Extract in web.config with add
             var splashScreenPath = @"..//..//Files/BullsAndCowsSplashScreen.txt";
 
             //builder pattern TODO: 
@@ -26,20 +27,24 @@ namespace BullsAndCowsGame
 
 
 
+            IMessageLogger messageLogger = new ConsoleLogger();
             //simple factory pattern to select players
-            Console.WriteLine("0. Single player");
-            Console.WriteLine("1. Multi player");
 
+            messageLogger.LogMessageAndGoNextLine(Resources.GameMessagesResources.SinglePlayerGame);
+            messageLogger.LogMessageAndGoNextLine(Resources.GameMessagesResources.MultiplayerGame);
 
-            string userInput = Console.ReadLine();
+            string userInput = messageLogger.ReadMessage();
             int userInputAsInteger = 0;
             
             if (!string.IsNullOrEmpty(userInput))
             {
                 int.TryParse(userInput, out userInputAsInteger);
+                if (0 < userInputAsInteger && userInputAsInteger > 1)
+                {
+                    throw new ArgumentException("Incorrect input");
+                }
             }
 
-            IMessageLogger messageLogger = new ConsoleLogger();
             var gameType = (GameType)userInputAsInteger;
             ICollection<IPlayer> players = PlayerFactory.CreatePlayers(gameType, messageLogger);
             ICommandManager commandManager = new CommandManager(messageLogger);

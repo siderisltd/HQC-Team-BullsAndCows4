@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Bulls" xml:space="preserve">
+    <value>Bulls</value>
+  </data>
   <data name="ChooseBotPlayerName" xml:space="preserve">
     <value>Choose Bot Player Name</value>
   </data>
   <data name="ChooseHumanPlayerName" xml:space="preserve">
     <value>Choose Human Player Name</value>
+  </data>
+  <data name="Cows" xml:space="preserve">
+    <value>Cows</value>
   </data>
   <data name="EnterInputNumberOrCommand" xml:space="preserve">
     <value>Enter input number or command :</value>
@@ -129,11 +135,29 @@
   <data name="EnterSecretNumberMessage" xml:space="preserve">
     <value>Enter sectet number:</value>
   </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Help menu</value>
+  </data>
   <data name="InvalidCommand" xml:space="preserve">
     <value>Invalid Command</value>
   </data>
+  <data name="MultiplayerGame" xml:space="preserve">
+    <value>Press [1] for Multi-player game</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
   <data name="PlayerTurnMessage" xml:space="preserve">
     <value>'s turn</value>
+  </data>
+  <data name="SinglePlayerGame" xml:space="preserve">
+    <value>Press [0] for Single-player game</value>
+  </data>
+  <data name="StartingNewGame" xml:space="preserve">
+    <value>Starting a new game</value>
+  </data>
+  <data name="UnpauseMessage" xml:space="preserve">
+    <value>Game is paused press [esc] to unpause</value>
   </data>
   <data name="WellcomeMessage" xml:space="preserve">
     <value>Wellcome to Bulls And Cows Console Prototype</value>

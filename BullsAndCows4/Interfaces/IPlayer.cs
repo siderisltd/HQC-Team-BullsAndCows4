@@ -9,5 +9,9 @@
         int Attempts { get; set; }
 
         string GuessNumber { get; set; }
+
+        bool IsOnTurn { get; set; }
+
+        string GetSecretNumber { get; }
     }
 }

@@ -309,7 +309,7 @@
 
         private void AddPlayerToScoreboard(string playerName, int attempts)
         {
-            IPlayer player = new TestPlayer(playerName, attempts);
+            IPlayer player = new HumanPlayer(playerName, "1234");
             this.rankList.Add(player);
         }
     }

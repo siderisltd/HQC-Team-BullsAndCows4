@@ -4,8 +4,8 @@
 
     public class ComputerPlayer : Player, IPlayer
     {
-        public ComputerPlayer(string name)
-            : base(name)
+        public ComputerPlayer(string name, string secretNumber)
+            : base(name, secretNumber)
         {
         }
 

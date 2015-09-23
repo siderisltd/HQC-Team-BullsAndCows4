@@ -1,4 +1,5 @@
-﻿using BullsAndCowsGame.Enumerations;
+﻿using System.Linq;
+using BullsAndCowsGame.Enumerations;
 
 namespace BullsAndCowsGame.Engine
 {
@@ -10,32 +11,73 @@ namespace BullsAndCowsGame.Engine
     {
         private IEnumerable<IPlayer> players;
 
+        public IEnumerable<IPlayer> Players
+        {
+            get { return this.players; }
+            private set
+            {
+                ValidatePlayersCount(value);
+                this.players = value;
+            }
+        }
+
         private readonly ICommandManager commandManager;
 
         private readonly IMessageLogger logger;
 
         public GameEngine(IEnumerable<IPlayer> players, ICommandManager commandManager, GameType mode, IMessageLogger logger)
         {
+            commandManager.SetGameEngine(this);
             this.commandManager = commandManager;
-            this.players = players;
+            this.Players = players;
             this.Mode = mode;
             this.logger = logger;
         }
 
         public GameType Mode { get; }
 
+        public bool IsGameFinished { get; set; }
+
         public void StartGame()
         {
             Console.Clear();
+            int playerNumber = 0;
             //TODO: implement differentBehaviours on game modes...
-            while (true)
+            while (!this.IsGameFinished)
             {
-                foreach (var player in players)
+                IPlayer player = this.GetPlayerOnTurn(this.Players, playerNumber);
+                logger.LogMessage(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
+                logger.LogMessage(Resources.GameMessagesResources.EnterInputNumberOrCommand);
+                var userInput = Console.ReadLine(); //TODO: remove console stuffs
+                commandManager.ProcessCommand(userInput, player);
+                if (this.Mode == GameType.MultiPlayer)
                 {
-                    Console.Write("Enter input number or command :");
-                    var userInput = Console.ReadLine();
-                    commandManager.ProcessCommand(userInput, player);
+                    playerNumber ++;
                 }
+            }
+        }
+
+        private IPlayer GetPlayerOnTurn(IEnumerable<IPlayer> players, int playerNumber)
+        {
+            IEnumerator<IPlayer> enumerator = players.GetEnumerator();
+            if (playerNumber % 2 == 1)
+            {
+                enumerator.MoveNext();
+                enumerator.Current.IsOnTurn = false;
+            }
+            enumerator.MoveNext();
+            IPlayer player = enumerator.Current;
+            player.IsOnTurn = true;
+            return player;
+        }
+
+        private void ValidatePlayersCount(IEnumerable<IPlayer> players)
+        {
+            var count = players.Count();
+
+            if (count != 2)
+            {
+                throw new ArgumentException("Players must be exactly 2");
             }
         }
     }

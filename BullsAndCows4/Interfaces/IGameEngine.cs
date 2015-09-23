@@ -1,4 +1,6 @@
-﻿namespace BullsAndCowsGame.Interfaces
+﻿using System.Collections.Generic;
+
+namespace BullsAndCowsGame.Interfaces
 {
     public interface IGameEngine
     {

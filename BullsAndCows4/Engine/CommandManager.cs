@@ -3,7 +3,6 @@
 namespace BullsAndCowsGame.Engine
 {
     using System;
-    using System.Globalization;
     using BullsAndCowsGame.Interfaces;
     using BullsAndCowsGame.Models.Commands;
     using System.Collections.Generic;
@@ -13,12 +12,14 @@ namespace BullsAndCowsGame.Engine
     {
         private readonly IMessageLogger logger;
 
+        public IGameEngine engine { get; set; }
+
         public CommandManager(IMessageLogger logger)
         {
             this.logger = logger;
         }
 
-        private IGameEngine engine;
+
 
         private readonly IDictionary<string, ICommand> commands = new Dictionary<string, ICommand>
                                                                    {
@@ -51,6 +52,9 @@ namespace BullsAndCowsGame.Engine
             else
             {
                 logger.LogMessage(Resources.GameMessagesResources.InvalidCommand);
+                logger.LogMessage(Resources.GameMessagesResources.EnterInputNumberOrCommand);
+                var newCommand = Console.ReadLine();
+                this.ProcessCommand(newCommand, player);
             }
 
         }
@@ -62,6 +66,11 @@ namespace BullsAndCowsGame.Engine
             bool isValidNumberGuess = regex.IsMatch(playerInput);
 
             return isValidNumberGuess;
+        }
+
+        public void SetGameEngine(IGameEngine gameEngine)
+        {
+            this.engine = gameEngine;
         }
     }
 }

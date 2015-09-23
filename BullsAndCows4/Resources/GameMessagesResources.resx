@@ -123,8 +123,17 @@
   <data name="ChooseHumanPlayerName" xml:space="preserve">
     <value>Choose Human Player Name</value>
   </data>
+  <data name="EnterInputNumberOrCommand" xml:space="preserve">
+    <value>Enter input number or command :</value>
+  </data>
+  <data name="EnterSecretNumberMessage" xml:space="preserve">
+    <value>Enter sectet number:</value>
+  </data>
   <data name="InvalidCommand" xml:space="preserve">
     <value>Invalid Command</value>
+  </data>
+  <data name="PlayerTurnMessage" xml:space="preserve">
+    <value>'s turn</value>
   </data>
   <data name="WellcomeMessage" xml:space="preserve">
     <value>Wellcome to Bulls And Cows Console Prototype</value>

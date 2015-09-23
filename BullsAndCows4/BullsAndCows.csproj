@@ -97,7 +97,6 @@
     <Compile Include="Models\HumanPlayer.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Ranking.cs" />
-    <Compile Include="Models\TestPlayer.cs" />
     <Compile Include="PlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>

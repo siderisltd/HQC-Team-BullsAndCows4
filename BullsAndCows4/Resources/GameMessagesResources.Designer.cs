@@ -79,11 +79,38 @@ namespace BullsAndCowsGame.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter input number or command :.
+        /// </summary>
+        internal static string EnterInputNumberOrCommand {
+            get {
+                return ResourceManager.GetString("EnterInputNumberOrCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter sectet number:.
+        /// </summary>
+        internal static string EnterSecretNumberMessage {
+            get {
+                return ResourceManager.GetString("EnterSecretNumberMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Command.
         /// </summary>
         internal static string InvalidCommand {
             get {
                 return ResourceManager.GetString("InvalidCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;s turn.
+        /// </summary>
+        internal static string PlayerTurnMessage {
+            get {
+                return ResourceManager.GetString("PlayerTurnMessage", resourceCulture);
             }
         }
         

@@ -1,5 +1,7 @@
 ﻿using System;
+using BullsAndCowsGame.Engine;
 using BullsAndCowsGame.Interfaces;
+using System.Linq;
 
 namespace BullsAndCowsGame.Models.Commands
 {
@@ -7,23 +9,28 @@ namespace BullsAndCowsGame.Models.Commands
     {
         public override void ProcessCommand(IPlayer player, IGameEngine engine)
         {
-            this.ProcessPlayerNumberGuess(player);
+            this.ProcessPlayerNumberGuess(player, engine);
         }
 
-        private void ProcessPlayerNumberGuess(IPlayer player)
+        private void ProcessPlayerNumberGuess(IPlayer player, IGameEngine engine)
         {
+            var asConcreteEngine = engine as GameEngine;
             var guessNumber = player.GuessNumber;
 
-            //TODO Configure otherPlayer
-            var otherPlayerSecretNumber = "1234";
+            IPlayer enemyPlayer = asConcreteEngine.Players.AsQueryable().Where(x => x.IsOnTurn == false).FirstOrDefault();
 
-            Console.WriteLine("ImplementPlayerGuess");
+
+            var otherPlayerSecretNumber = enemyPlayer.GetSecretNumber;
 
             var bullsCount = this.CalculateBullsCount(guessNumber, otherPlayerSecretNumber);
             var cowsCount = this.CalculateCowsCount(guessNumber, otherPlayerSecretNumber);
 
-            Console.WriteLine("{0} bulls    {1} cows", bullsCount, cowsCount);;
+            Console.WriteLine("{0} bulls    {1} cows", bullsCount, cowsCount);
 
+            if (bullsCount == 4)
+            {
+                asConcreteEngine.IsGameFinished = true;
+            }
         }
 
 

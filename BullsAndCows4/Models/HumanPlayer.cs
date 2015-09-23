@@ -4,8 +4,8 @@
 
     public class HumanPlayer : Player, IPlayer
     {
-        public HumanPlayer(string name) 
-            : base(name)
+        public HumanPlayer(string name, string secretNumber) 
+            : base(name, secretNumber)
         {
         }
 

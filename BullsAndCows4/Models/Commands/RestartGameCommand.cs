@@ -17,7 +17,7 @@ namespace BullsAndCowsGame.Models.Commands
 
             engine.Dispose();
             var engineAsGameEngine = engine as GameEngine;
-            engineAsGameEngine.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.StartingNewGame);
+            engineAsGameEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.StartingNewGame);
             engine.StartGame();
 
             //pri restart trqbva da se napravi prototypePattern i s observer da se zakachim 

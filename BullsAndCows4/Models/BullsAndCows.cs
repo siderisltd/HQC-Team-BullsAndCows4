@@ -157,7 +157,6 @@
                     break;
                 default:
                     throw new ArgumentException("PlayerCommand has more values than predicted");
-                    break;
             }
         }
 

@@ -1,29 +1,16 @@
-﻿using System.Linq;
-using BullsAndCowsGame.Enumerations;
-
-namespace BullsAndCowsGame.Engine
+﻿namespace BullsAndCowsGame.Engine
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using BullsAndCowsGame.Enumerations;
     using BullsAndCowsGame.Interfaces;
 
     public sealed class GameEngine : IGameEngine, IDisposable
     {
-        private IEnumerable<IPlayer> players;
-
-        public IEnumerable<IPlayer> Players
-        {
-            get { return this.players; }
-            private set
-            {
-                ValidatePlayersCount(value);
-                this.players = value;
-            }
-        }
-
+        public readonly IMessageLogger Logger;
         private readonly ICommandManager commandManager;
-
-        public readonly IMessageLogger logger;
+        private IEnumerable<IPlayer> players;
 
         public GameEngine(IEnumerable<IPlayer> players, ICommandManager commandManager, GameType mode, IMessageLogger logger)
         {
@@ -31,7 +18,21 @@ namespace BullsAndCowsGame.Engine
             this.commandManager = commandManager;
             this.Players = players;
             this.Mode = mode;
-            this.logger = logger;
+            this.Logger = logger;
+        }
+
+        public IEnumerable<IPlayer> Players
+        {
+            get
+            {
+                return this.players;
+            }
+
+            private set
+            {
+                this.ValidatePlayersCount(value);
+                this.players = value;
+            }
         }
 
         public GameType Mode { get; }
@@ -42,17 +43,18 @@ namespace BullsAndCowsGame.Engine
         {
             Console.Clear();
             int playerNumber = 0;
-            //TODO: implement differentBehaviours on game modes...
+            ////TODO: implement differentBehaviours on game modes...
+
             while (!this.IsGameFinished)
             {
                 IPlayer player = this.GetPlayerOnTurn(this.Players, playerNumber);
-                logger.LogMessageAndGoNextLine(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
-                logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
-                var userInput = Console.ReadLine(); //TODO: remove console stuffs
-                commandManager.ProcessCommand(userInput, player);
+                this.Logger.LogMessageAndGoNextLine(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
+                this.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
+                var userInput = Console.ReadLine(); ////TODO: remove console stuffs
+                this.commandManager.ProcessCommand(userInput, player);
                 if (this.Mode == GameType.MultiPlayer)
                 {
-                    playerNumber ++;
+                    playerNumber++;
                 }
             }
         }
@@ -65,10 +67,16 @@ namespace BullsAndCowsGame.Engine
                 enumerator.MoveNext();
                 enumerator.Current.IsOnTurn = false;
             }
+
             enumerator.MoveNext();
             IPlayer player = enumerator.Current;
             player.IsOnTurn = true;
             return player;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
 
         private void ValidatePlayersCount(IEnumerable<IPlayer> players)
@@ -79,11 +87,6 @@ namespace BullsAndCowsGame.Engine
             {
                 throw new ArgumentException("Players must be exactly 2");
             }
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

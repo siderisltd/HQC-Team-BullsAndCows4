@@ -29,7 +29,7 @@ namespace BullsAndCowsGame.Models.Commands
             var bullsAndCowsGameAnswer = bullsCount + " " + Resources.GameMessagesResources.Bulls + " " +
                                          cowsCount + " " + Resources.GameMessagesResources.Cows;
 
-            asConcreteEngine.logger.LogMessageAndGoNextLine(bullsAndCowsGameAnswer);
+            asConcreteEngine.Logger.LogMessageAndGoNextLine(bullsAndCowsGameAnswer);
 
             if (bullsCount == 4)
             {

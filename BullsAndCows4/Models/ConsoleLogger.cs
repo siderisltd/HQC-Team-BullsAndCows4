@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace BullsAndCowsGame.Models
+﻿namespace BullsAndCowsGame.Models
 {
+    using System;
     using BullsAndCowsGame.Interfaces;
 
     internal class ConsoleLogger : IMessageLogger

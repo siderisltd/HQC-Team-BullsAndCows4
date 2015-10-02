@@ -1,19 +1,19 @@
 ﻿namespace BullsAndCowsGame.Models
 {
     using System;
-    using BullsAndCowsGame.Interfaces;
     using System.Collections.Generic;
+    using BullsAndCowsGame.Interfaces;
 
     public abstract class Player : IPlayer, IComparable<IPlayer>
     {
+        private readonly string secretNumber;
+
         protected Player(string name, string secretNumber)
         {
             this.Name = name;
             this.Attempts = 0;
             this.secretNumber = secretNumber;
         }
-
-        private readonly string secretNumber;
 
         public string GetSecretNumber
         {
@@ -40,9 +40,9 @@
             return other.Attempts - this.Attempts;
         }
 
-        public void AddGuessNumber()
+        public void AddGuessNumber(string guessNumber)
         {
-            
+            this.GuessedNumbers.Add(guessNumber);
         }
     }
 }

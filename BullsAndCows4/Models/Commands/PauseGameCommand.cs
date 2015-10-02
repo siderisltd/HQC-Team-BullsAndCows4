@@ -1,12 +1,11 @@
 ﻿namespace BullsAndCowsGame.Models.Commands
 {
     using System;
-    using BullsAndCowsGame.Interfaces;
     using BullsAndCowsGame.Engine;
+    using BullsAndCowsGame.Interfaces;
 
     public class PauseGameCommand : Command, ICommand
     {
-
         public override void ProcessCommand(IGameEngine engine)
         {
             this.PauseGame(engine);

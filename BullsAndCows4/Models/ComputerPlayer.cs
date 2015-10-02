@@ -14,13 +14,18 @@
 
         public override string Name
         {
-            get {return this.name; }
+            get
+            {
+                return this.name;
+            }
+
             set
             {
                 if (value == null)
                 {
                     throw new ArgumentNullException("Name of the player cannot be null");
                 }
+
                 this.name = value;
             }
         }

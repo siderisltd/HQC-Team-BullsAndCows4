@@ -1,10 +1,10 @@
-﻿using System;
-using BullsAndCowsGame.Engine;
-using BullsAndCowsGame.Interfaces;
-using System.Linq;
-
-namespace BullsAndCowsGame.Models.Commands
+﻿namespace BullsAndCowsGame.Models.Commands
 {
+    using System;
+    using System.Linq;
+    using BullsAndCowsGame.Engine;
+    using BullsAndCowsGame.Interfaces;
+
     internal class ProcessNumberCommand : Command, ICommand
     {
         public override void ProcessCommand(IGameEngine engine)
@@ -36,7 +36,6 @@ namespace BullsAndCowsGame.Models.Commands
                 asConcreteEngine.IsGameFinished = true;
             }
         }
-
 
         private int CalculateBullsCount(string guessNumber, string otherPlayerSecretNumber)
         {

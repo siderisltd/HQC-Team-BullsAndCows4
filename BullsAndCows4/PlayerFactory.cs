@@ -1,16 +1,14 @@
-﻿//SimpleFactory
-
-using System.Collections;
-using System.Text;
-using System.Text.RegularExpressions;
-
+﻿////SimpleFactory
 namespace BullsAndCowsGame
 {
     using System;
-    using Enumerations;
+    using System.Collections;
     using System.Collections.Generic;
-    using BullsAndCowsGame.Models;
+    using System.Text;
+    using System.Text.RegularExpressions;
     using BullsAndCowsGame.Interfaces;
+    using BullsAndCowsGame.Models;
+    using Enumerations;
 
     internal static class PlayerFactory
     {
@@ -46,7 +44,7 @@ namespace BullsAndCowsGame
         private static IPlayer CreateComputerPlayer()
         {
             logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseBotPlayerName);
-            var botName = logger.ReadMessage(); //TODO:  remove coupled ReadLine
+            var botName = logger.ReadMessage(); ////TODO:  remove coupled ReadLine
             var botSecretNumber = GenerateSecretNumber();
             var computerPlayer = new ComputerPlayer(botName, botSecretNumber);
             return computerPlayer;
@@ -102,11 +100,12 @@ namespace BullsAndCowsGame
                     secretNumber += key.KeyChar;
                     logger.LogMessageOnSameLine("*");
                 }
+
                 if (key.Key == ConsoleKey.Backspace)
                 {
                     if (secretNumber.Length > 0)
                     {
-                        secretNumber = secretNumber.Substring(0, (secretNumber.Length - 1));
+                        secretNumber = secretNumber.Substring(0, secretNumber.Length - 1);
                         logger.LogMessageOnSameLine("\b \b");
                     }
                 }
@@ -123,7 +122,7 @@ namespace BullsAndCowsGame
             Regex regex = new Regex(pattern);
             bool isValidNumberGuess = regex.IsMatch(secretNumber);
 
-            //Go recursive to EnterSecretNumber if the number is not correct
+            ////Go recursive to EnterSecretNumber if the number is not correct
             if (!isValidNumberGuess)
             {
                 EnterSecretNumber();

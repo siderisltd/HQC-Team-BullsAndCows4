@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace BullsAndCowsGame.Models.Commands
+﻿namespace BullsAndCowsGame.Models.Commands
 {
+    using System;
     using BullsAndCowsGame.Interfaces;
 
     public class ShowHelpCommand : Command, ICommand
@@ -13,11 +12,11 @@ namespace BullsAndCowsGame.Models.Commands
 
         private void ShowHelpMenu()
         {
-            //pazim state na obektite predi show state 
+            ////pazim state na obektite predi show state 
 
-            // davame help menu na console.clear
+            //// davame help menu na console.clear
 
-            // vrushtame sled nqkoi key obektite v state predi help menu to 
+            //// vrushtame sled nqkoi key obektite v state predi help menu to 
             Console.WriteLine("Showing help menu");
         }
     }

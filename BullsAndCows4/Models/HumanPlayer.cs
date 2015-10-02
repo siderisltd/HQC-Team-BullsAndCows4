@@ -18,6 +18,7 @@
             {
                 return this.name;
             }
+
             set
             {
                 if (value == null)

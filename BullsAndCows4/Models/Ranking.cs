@@ -13,9 +13,9 @@
 
         private int count;
 
-        public Ranking(int aMaxCountOfStoredData)
+        public Ranking(int amaxCountOfStoredData)
         {
-            this.maxCountOfStoredData = aMaxCountOfStoredData;
+            this.maxCountOfStoredData = amaxCountOfStoredData;
             this.data = new T[this.maxCountOfStoredData];
             this.count = 0;
         }

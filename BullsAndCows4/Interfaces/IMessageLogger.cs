@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BullsAndCowsGame.Interfaces
+﻿namespace BullsAndCowsGame.Interfaces
 {
+    using System;
+
     public interface IMessageLogger
     {
         void LogMessageAndGoNextLine(string message);

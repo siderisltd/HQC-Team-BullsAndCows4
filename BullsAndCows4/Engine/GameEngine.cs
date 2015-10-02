@@ -59,6 +59,11 @@
             }
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         private IPlayer GetPlayerOnTurn(IEnumerable<IPlayer> players, int playerNumber)
         {
             IEnumerator<IPlayer> enumerator = players.GetEnumerator();
@@ -72,11 +77,6 @@
             IPlayer player = enumerator.Current;
             player.IsOnTurn = true;
             return player;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         private void ValidatePlayersCount(IEnumerable<IPlayer> players)

@@ -7,6 +7,7 @@ namespace BullsAndCowsGame
     using BullsAndCowsGame.Interfaces;
     using BullsAndCowsGame.Models;
     using ConsoleUtills;
+    using Exceptions;
 
     internal static class MainClass
     {
@@ -38,7 +39,8 @@ namespace BullsAndCowsGame
                 int.TryParse(userInput, out userInputAsInteger);
                 if (0 < userInputAsInteger && userInputAsInteger > 1)
                 {
-                    throw new ArgumentException("Incorrect input");
+                    //throw new ArgumentException("Incorrect input");
+                    BullsAndCowsException.GameInputException();
                 }
             }
 

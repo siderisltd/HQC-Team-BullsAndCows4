@@ -71,6 +71,7 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Enumerations\GameType.cs" />
     <Compile Include="Enumerations\PlayerCommandType.cs" />
+    <Compile Include="Exceptions\BullsAndCowsException.cs" />
     <Compile Include="Interfaces\IMessageLogger.cs" />
     <Compile Include="Models\ConsoleLogger.cs" />
     <Compile Include="Resources\GameMessagesResources.Designer.cs">
@@ -99,9 +100,7 @@
     <Compile Include="Models\Ranking.cs" />
     <Compile Include="PlayerFactory.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Console\ConsoleUtills.csproj">
       <Project>{3312acb7-6ca3-4322-9732-32a5d70d8b46}</Project>

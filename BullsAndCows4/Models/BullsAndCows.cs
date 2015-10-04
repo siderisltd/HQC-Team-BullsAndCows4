@@ -5,6 +5,7 @@
     using System.Text.RegularExpressions;
     using BullsAndCowsGame.Enumerations;
     using BullsAndCowsGame.Interfaces;
+    using Exceptions;
 
     public class BullsAndCows
     {
@@ -156,7 +157,10 @@
                 case PlayerCommandType.Other:
                     break;
                 default:
-                    throw new ArgumentException("PlayerCommand has more values than predicted");
+                    BullsAndCowsException.PlayerCommandException();
+                    break;
+                    //throw new ArgumentException("PlayerCommand has more values than predicted");
+
             }
         }
 

@@ -5,9 +5,12 @@
     using System.Linq;
     using BullsAndCowsGame.Enumerations;
     using BullsAndCowsGame.Interfaces;
+    using Exceptions;
 
     public sealed class GameEngine : IGameEngine, IDisposable
     {
+        private const int PlayersCount = 2;
+
         public readonly IMessageLogger Logger;
         private readonly ICommandManager commandManager;
         private IEnumerable<IPlayer> players;
@@ -83,9 +86,10 @@
         {
             var count = players.Count();
 
-            if (count != 2)
+            if (count != PlayersCount)
             {
-                throw new ArgumentException("Players must be exactly 2");
+                //throw new ArgumentException("Players must be exactly 2");
+                BullsAndCowsException.PlayerCountException(PlayersCount);
             }
         }
     }

@@ -2,6 +2,7 @@
 {
     using System;
     using BullsAndCowsGame.Interfaces;
+    using Exceptions;
 
     public class HumanPlayer : Player, IPlayer
     {
@@ -23,7 +24,8 @@
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("Name of the player cannot be null");
+                    //throw new ArgumentNullException("Name of the player cannot be null");
+                    BullsAndCowsException.PlayersNameNullException();
                 }
 
                 this.name = value;

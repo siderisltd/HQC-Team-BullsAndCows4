@@ -9,6 +9,7 @@ namespace BullsAndCowsGame
     using BullsAndCowsGame.Interfaces;
     using BullsAndCowsGame.Models;
     using Enumerations;
+    using Exceptions;
 
     internal static class PlayerFactory
     {
@@ -35,7 +36,9 @@ namespace BullsAndCowsGame
                     players.Add(secondPlayer);
                     break;
                 default:
-                    throw new ArgumentException("Invalid game type");
+                    //throw new ArgumentException("Invalid game type");
+                    BullsAndCowsException.GameTypeException();
+                    break;
             }
 
             return players;

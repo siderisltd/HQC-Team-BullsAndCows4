@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BullsAndCowsGame.Models;
+using BullsAndCowsGame.Exceptions;
 
 namespace TestBullsAndCows
 {

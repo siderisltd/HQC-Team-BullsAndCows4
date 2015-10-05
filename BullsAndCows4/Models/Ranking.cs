@@ -1,6 +1,7 @@
 ﻿namespace BullsAndCowsGame.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
 
     public class Ranking<T> : IEnumerable<T>, IEnumerator<T> where T : IComparable<T>
@@ -38,7 +39,7 @@
             }
         }
 
-        object System.Collections.IEnumerator.Current
+        object IEnumerator.Current
         {
             get
             {
@@ -51,7 +52,7 @@
             return (IEnumerator<T>)this;
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return (IEnumerator<T>)this;
         }

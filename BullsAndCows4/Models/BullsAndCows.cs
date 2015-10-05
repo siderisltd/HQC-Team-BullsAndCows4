@@ -18,6 +18,8 @@
 
         private const int SecretNumberLength = 4;
 
+        private const int CheatsCount = 4;
+
         private string helpPattern;
 
         private StringBuilder helpNumber;
@@ -86,13 +88,12 @@
 
         private void GenerateComputerPlayerSecretNumber()
         {
-            var secretNumberLength = 4;
             var secretNumber = string.Empty;
 
             var numberBuilder = new StringBuilder();
             var random = new Random();
 
-            for (var i = 0; i < secretNumberLength; i++)
+            for (var i = 0; i < SecretNumberLength; i++)
             {
                 int randomDigit = random.Next(1, 9);
                 var randomDigitToString = randomDigit.ToString();
@@ -196,7 +197,7 @@
 
         private int ShowHelpMenu(int cheats)
         {
-            if (cheats < 4)
+            if (cheats < CheatsCount)
             {
                 this.RevealDigit(cheats);
                 cheats++;

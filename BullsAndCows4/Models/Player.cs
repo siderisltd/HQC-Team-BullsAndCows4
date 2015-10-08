@@ -20,7 +20,7 @@
             get { return this.secretNumber; }
         }
 
-        public ICollection<string> GuessedNumbers { get; }
+        public ICollection<string> GuessedNumbers { get; set; }
 
         public abstract string Name { get; set; }
 

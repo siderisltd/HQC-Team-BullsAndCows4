@@ -38,7 +38,7 @@
             }
         }
 
-        public GameType Mode { get; }
+        public GameType Mode { get; set; }
 
         public bool IsGameFinished { get; set; }
 

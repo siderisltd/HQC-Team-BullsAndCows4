@@ -48,7 +48,8 @@ namespace BullsAndCowsGame
         {
             logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseBotPlayerName);
             var botName = logger.ReadMessage();
-            var botSecretNumber = GenerateSecretNumber();
+            var secretNumber = new SecretNumber(logger);
+            var botSecretNumber = secretNumber.GenerateSecretNumber();
             var computerPlayer = new ComputerPlayer(botName, botSecretNumber);
             return computerPlayer;
         }
@@ -57,74 +58,10 @@ namespace BullsAndCowsGame
         {
             logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseHumanPlayerName);
             var playerName = logger.ReadMessage();
-            var secretNumber = EnterSecretNumber();
-            var humanPlayer = new HumanPlayer(playerName, secretNumber);
+            var secretNumber = new SecretNumber(logger);
+            var humanSecretNumber = secretNumber.EnterSecretNumber();
+            var humanPlayer = new HumanPlayer(playerName, humanSecretNumber);
             return humanPlayer;
-        }
-
-        private static string GenerateSecretNumber()
-        {
-            var secretNumberLength = 4;
-            var secretNumber = string.Empty;
-
-            var numberBuilder = new StringBuilder();
-            var random = new Random();
-
-            for (var i = 0; i < secretNumberLength; i++)
-            {
-                int randomDigit = random.Next(1, 9);
-                var randomDigitToString = randomDigit.ToString();
-
-                if (!numberBuilder.ToString().Contains(randomDigitToString))
-                {
-                    numberBuilder.Append(randomDigit);
-                }
-                else
-                {
-                    i--;
-                }
-            }
-
-            secretNumber = numberBuilder.ToString();
-
-            return secretNumber;
-        }
-
-        private static string EnterSecretNumber()
-        {
-            logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterSecretNumberMessage);
-            string secretNumber = string.Empty;
-            ConsoleKeyInfo key;
-            do
-            {
-                key = logger.ReadKey(true);
-                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
-                {
-                    secretNumber += key.KeyChar;
-                    logger.LogMessageOnSameLine("*");
-                }
-
-                if (key.Key == ConsoleKey.Backspace)
-                {
-                    if (secretNumber.Length > 0)
-                    {
-                        secretNumber = secretNumber.Substring(0, secretNumber.Length - 1);
-                        logger.LogMessageOnSameLine("\b \b");
-                    }
-                }
-            }
-            while (key.Key != ConsoleKey.Enter);
-
-            logger.LogMessageAndGoNextLine(string.Empty);
-
-            var isValidSecretNumber = Validator.IsValidNumberGuess(secretNumber);
-            ////Go recursive to EnterSecretNumber if the number is not correct
-            if (!isValidSecretNumber)
-            {
-                EnterSecretNumber();
-            }
-
-            return secretNumber;
         }
     }
 }

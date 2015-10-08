@@ -51,10 +51,15 @@
             while (!this.IsGameFinished)
             {
                 IPlayer player = this.GetPlayerOnTurn(this.Players, playerNumber);
+
                 this.Logger.LogMessageAndGoNextLine(player.Name + Resources.GameMessagesResources.PlayerTurnMessage);
+                this.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.InstructionsForCommands);
                 this.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
-                var userInput = Console.ReadLine(); ////TODO: remove console stuffs
+
+                var userInput = this.Logger.ReadMessage();
+
                 this.commandManager.ProcessCommand(userInput, player);
+
                 if (this.Mode == GameType.MultiPlayer)
                 {
                     playerNumber++;

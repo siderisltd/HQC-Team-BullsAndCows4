@@ -16,11 +16,11 @@
             var engineAsConcreteEngine = engine as GameEngine;
             engineAsConcreteEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
 
-            var keyPressed = Console.ReadKey();
+            var keyPressed = engineAsConcreteEngine.Logger.ReadKey(true);
             while (keyPressed.Key != ConsoleKey.Escape)
             {
                 engineAsConcreteEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
-                keyPressed = Console.ReadKey();
+                keyPressed = engineAsConcreteEngine.Logger.ReadKey(true);
             }
         }
     }

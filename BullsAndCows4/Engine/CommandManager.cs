@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
+
     using BullsAndCowsGame.Interfaces;
+    using BullsAndCowsGame.Models;
     using BullsAndCowsGame.Models.Commands;
 
     public class CommandManager : ICommandManager
@@ -30,7 +32,7 @@
 
         public void ProcessCommand(string userCommand, IPlayer player)
         {
-            var isValidNumberGuess = this.IsValidNumberGuess(userCommand);
+            var isValidNumberGuess = Validator.IsValidNumberGuess(userCommand);
 
             if (isValidNumberGuess)
             {
@@ -45,13 +47,14 @@
             if (isValidCommand)
             {
                 ICommand command = this.commands[userCommandToLower];
+                //TODO: Unreveal hidden dependensy of game engine - get it from commandManager constructor
                 command.ProcessCommand(this.Engine);
             }
             else
             {
                 this.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.InvalidCommand);
                 this.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
-                var newCommand = Console.ReadLine();
+                var newCommand = logger.ReadMessage();
                 this.ProcessCommand(newCommand, player);
             }
         }
@@ -59,15 +62,6 @@
         public void SetGameEngine(IGameEngine gameEngine)
         {
             this.Engine = gameEngine;
-        }
-
-        private bool IsValidNumberGuess(string playerInput)
-        {
-            var pattern = "^[1-9]{4}$";
-            Regex regex = new Regex(pattern);
-            bool isValidNumberGuess = regex.IsMatch(playerInput);
-            ////TODO make non repeatable numbers pattern
-            return isValidNumberGuess;
         }
     }
 }

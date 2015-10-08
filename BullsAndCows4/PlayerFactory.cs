@@ -47,7 +47,7 @@ namespace BullsAndCowsGame
         private static IPlayer CreateComputerPlayer()
         {
             logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.ChooseBotPlayerName);
-            var botName = logger.ReadMessage(); ////TODO:  remove coupled ReadLine
+            var botName = logger.ReadMessage();
             var botSecretNumber = GenerateSecretNumber();
             var computerPlayer = new ComputerPlayer(botName, botSecretNumber);
             return computerPlayer;
@@ -114,22 +114,17 @@ namespace BullsAndCowsGame
                 }
             }
             while (key.Key != ConsoleKey.Enter);
-            Console.WriteLine();
-            CheckIsValidSecretNumber(secretNumber);
-            return secretNumber;
-        }
 
-        private static void CheckIsValidSecretNumber(string secretNumber)
-        {
-            var pattern = "^[1-9]{4}$";
-            Regex regex = new Regex(pattern);
-            bool isValidNumberGuess = regex.IsMatch(secretNumber);
+            logger.LogMessageAndGoNextLine(string.Empty);
 
+            var isValidSecretNumber = Validator.IsValidNumberGuess(secretNumber);
             ////Go recursive to EnterSecretNumber if the number is not correct
-            if (!isValidNumberGuess)
+            if (!isValidSecretNumber)
             {
                 EnterSecretNumber();
             }
+
+            return secretNumber;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace BullsAndCowsGame
             if (!string.IsNullOrEmpty(userInput))
             {
                 int.TryParse(userInput, out userInputAsInteger);
-                if (0 < userInputAsInteger && userInputAsInteger > 1)
+                if(!Enum.IsDefined(typeof(GameType), userInputAsInteger))
                 {
                     //throw new ArgumentException("Incorrect input");
                     BullsAndCowsException.GameInputException();
@@ -45,6 +45,7 @@ namespace BullsAndCowsGame
             }
 
             var gameType = (GameType)userInputAsInteger;
+
             ICollection<IPlayer> players = PlayerFactory.CreatePlayers(gameType, messageLogger);
             ICommandManager commandManager = new CommandManager(messageLogger);
 

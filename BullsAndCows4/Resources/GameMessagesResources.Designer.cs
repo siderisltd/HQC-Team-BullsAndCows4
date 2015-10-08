@@ -106,7 +106,7 @@ namespace BullsAndCowsGame.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter sectet number:.
+        ///   Looks up a localized string similar to Enter secret number:.
         /// </summary>
         internal static string EnterSecretNumberMessage {
             get {
@@ -120,6 +120,15 @@ namespace BullsAndCowsGame.Resources {
         internal static string HelpMenu {
             get {
                 return ResourceManager.GetString("HelpMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use [top] to view the top scoreboard, [help] to cheat, [restart] to start a new game, [pause] to pause the game  and [exit] to quit the game..
+        /// </summary>
+        internal static string InstructionsForCommands {
+            get {
+                return ResourceManager.GetString("InstructionsForCommands", resourceCulture);
             }
         }
         

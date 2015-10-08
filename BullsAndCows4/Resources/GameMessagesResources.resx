@@ -133,10 +133,13 @@
     <value>Enter input number or command :</value>
   </data>
   <data name="EnterSecretNumberMessage" xml:space="preserve">
-    <value>Enter sectet number:</value>
+    <value>Enter secret number:</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>Help menu</value>
+  </data>
+  <data name="InstructionsForCommands" xml:space="preserve">
+    <value>Use [top] to view the top scoreboard, [help] to cheat, [restart] to start a new game, [pause] to pause the game  and [exit] to quit the game.</value>
   </data>
   <data name="InvalidCommand" xml:space="preserve">
     <value>Invalid Command</value>

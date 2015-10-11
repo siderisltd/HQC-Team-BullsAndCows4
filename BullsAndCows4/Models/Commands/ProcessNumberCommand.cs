@@ -14,12 +14,10 @@
 
         private void ProcessPlayerNumberGuess(IGameEngine engine)
         {
-            var asConcreteEngine = engine as GameEngine;
-
-            var currentPlayer = asConcreteEngine.Players.AsQueryable().Where(x => x.IsOnTurn == true).FirstOrDefault();
+            var currentPlayer = engine.Players.AsQueryable().Where(x => x.IsOnTurn == true).FirstOrDefault();
             var guessNumber = currentPlayer.GuessNumber;
 
-            IPlayer enemyPlayer = asConcreteEngine.Players.AsQueryable().Where(x => x.IsOnTurn == false).FirstOrDefault();
+            IPlayer enemyPlayer = engine.Players.AsQueryable().Where(x => x.IsOnTurn == false).FirstOrDefault();
 
             var otherPlayerSecretNumber = enemyPlayer.GetSecretNumber;
 
@@ -29,11 +27,11 @@
             var bullsAndCowsGameAnswer = bullsCount + " " + Resources.GameMessagesResources.Bulls + " " +
                                          cowsCount + " " + Resources.GameMessagesResources.Cows;
 
-            asConcreteEngine.Logger.LogMessageAndGoNextLine(bullsAndCowsGameAnswer);
+            engine.Logger.LogMessageAndGoNextLine(bullsAndCowsGameAnswer);
 
             if (bullsCount == 4)
             {
-                asConcreteEngine.IsGameFinished = true;
+                engine.IsGameFinished = true;
             }
         }
 

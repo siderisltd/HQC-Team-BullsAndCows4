@@ -160,8 +160,6 @@
                 default:
                     BullsAndCowsException.PlayerCommandException();
                     break;
-                    //throw new ArgumentException("PlayerCommand has more values than predicted");
-
             }
         }
 

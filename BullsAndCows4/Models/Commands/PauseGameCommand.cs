@@ -13,14 +13,13 @@
 
         private void PauseGame(IGameEngine engine)
         {
-            var engineAsConcreteEngine = engine as GameEngine;
-            engineAsConcreteEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
+            engine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
 
-            var keyPressed = engineAsConcreteEngine.Logger.ReadKey(true);
+            var keyPressed = engine.Logger.ReadKey(true);
             while (keyPressed.Key != ConsoleKey.Escape)
             {
-                engineAsConcreteEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
-                keyPressed = engineAsConcreteEngine.Logger.ReadKey(true);
+                engine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.UnpauseMessage);
+                keyPressed = engine.Logger.ReadKey(true);
             }
         }
     }

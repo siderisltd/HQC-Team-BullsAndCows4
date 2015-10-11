@@ -1,13 +1,19 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BullsAndCowsGame.Models;
-using BullsAndCowsGame.Exceptions;
-
-namespace TestBullsAndCows
+﻿namespace TestBullsAndCows
 {
+    using System;
+    using BullsAndCowsGame.Exceptions;
+    using BullsAndCowsGame.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// Tests for Computer Player.
+    /// </summary>
     [TestClass]
     public class TestComputerPlayer
     {
+        /// <summary>
+        /// Tests if creating new computer player work.
+        /// </summary>
         [TestMethod]
         public void TestCreateNewComputerPlayer()
         {
@@ -17,6 +23,9 @@ namespace TestBullsAndCows
             Assert.AreEqual(0, computerPlayer.Attempts);
         }
 
+        /// <summary>
+        /// Tests if method GetSecretNumber of class ComputerPlayer works correctly.
+        /// </summary>
         [TestMethod]
         public void TestComputerPlayerGetSecretNumber()
         {
@@ -25,6 +34,9 @@ namespace TestBullsAndCows
             Assert.AreEqual("2345", computerPlayer.GetSecretNumber);
         }
 
+        /// <summary>
+        /// Tests if computer players throws exception with given invalid name.
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestComputerPlayerWithInvalidName()
@@ -32,6 +44,9 @@ namespace TestBullsAndCows
             Player computerPlayer = new ComputerPlayer(null, "2345");
         }
 
+        /// <summary>
+        /// Tests if method CompareTo of class ComputerPlayer works correctly.
+        /// </summary>
         [TestMethod]
         public void TestComputerPlayerCompareTo()
         {

@@ -37,9 +37,8 @@ namespace BullsAndCowsGame
             if (!string.IsNullOrEmpty(userInput))
             {
                 int.TryParse(userInput, out userInputAsInteger);
-                if(!Enum.IsDefined(typeof(GameType), userInputAsInteger))
+                if (!Enum.IsDefined(typeof(GameType), userInputAsInteger))
                 {
-                    //throw new ArgumentException("Incorrect input");
                     BullsAndCowsException.GameInputException();
                 }
             }

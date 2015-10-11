@@ -1,13 +1,19 @@
-﻿using System;
-using BullsAndCowsGame.Interfaces;
-using BullsAndCowsGame.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace TestBullsAndCows
+﻿namespace TestBullsAndCows
 {
+    using System;
+    using BullsAndCowsGame.Interfaces;
+    using BullsAndCowsGame.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// Tests for ranking of players.
+    /// </summary>
     [TestClass]
     public class TestRanking
     {
+        /// <summary>
+        /// Tests if creating new Ranking works correctly.
+        /// </summary>
         [TestMethod]
         public void TestRankingMethod()
         {
@@ -17,6 +23,9 @@ namespace TestBullsAndCows
             Assert.AreEqual(expect, ranklist.Count);
         }
 
+        /// <summary>
+        /// Tests if method Add of class Ranking works correctly.
+        /// </summary>
         [TestMethod]
         public void TestRankingMethodAdd()
         {
@@ -28,6 +37,9 @@ namespace TestBullsAndCows
             Assert.AreEqual(expect, ranklist.Count);
         }
 
+        /// <summary>
+        /// Tests if method MoveNext of class Ranking works correctly.
+        /// </summary>
         [TestMethod]
         public void TestRankingMethodMoveNext()
         {
@@ -39,6 +51,9 @@ namespace TestBullsAndCows
             Assert.IsTrue(move);
         }
 
+        /// <summary>
+        /// Tests if method Dispose of class Ranking works correctly.
+        /// </summary>
         [TestMethod]
         public void TestRankingMethodDispose()
         {
@@ -50,6 +65,5 @@ namespace TestBullsAndCows
 
         ////TODO
         }
-
     }
 }

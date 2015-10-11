@@ -1,19 +1,25 @@
 ﻿namespace ConsoleUtills
 {
     using System;
-    using System.Runtime.InteropServices;
     using System.Drawing;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    // Singleton
     public sealed class ConsoleHelper
     {
+        private static volatile ConsoleHelper instance;
+
+        private static object syncLock = new object();
+
         private ConsoleHelper()
         {
         }
 
-        private static volatile ConsoleHelper instance;
-
-        private static object syncLock = new object();
+        private enum StdHandle
+        {
+            OutputHandle = -11
+        }
 
         public static ConsoleHelper Instance
         {
@@ -32,33 +38,6 @@
                 return instance;
             }
         }
-
-        [DllImport("kernel32")]
-        private extern static bool SetConsoleFont(IntPtr hOutput, uint index);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr GetConsoleWindow();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT rc);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int w, int h, bool repaint);
-
-        [DllImport("kernel32")]
-        private static extern IntPtr GetStdHandle(StdHandle index);
-
-        public bool SetConsoleFont(byte index)
-        {
-            return SetConsoleFont(GetStdHandle(StdHandle.OutputHandle), index);
-        }
-
-        [DllImport("kernel32")]
-        private static extern bool GetConsoleFontInfo(IntPtr hOutput, [MarshalAs(UnmanagedType.Bool)]bool bMaximize,
-            uint count, [MarshalAs(UnmanagedType.LPArray), Out] ConsoleFont[] fonts);
-
-        [DllImport("kernel32")]
-        private static extern uint GetNumberOfConsoleFonts();
 
         public static uint ConsoleFontsCount
         {
@@ -82,6 +61,11 @@
             }
         }
 
+        public bool SetConsoleFont(byte index)
+        {
+            return SetConsoleFont(GetStdHandle(StdHandle.OutputHandle), index);
+        }
+
         public void CenterConsole()
         {
             IntPtr hWin = GetConsoleWindow();
@@ -103,10 +87,30 @@
             Console.WindowHeight = Console.LargestWindowHeight - 1;
         }
 
-        private enum StdHandle
-        {
-            OutputHandle = -11
-        }
+        [DllImport("kernel32")]
+        private static extern bool SetConsoleFont(IntPtr hOutput, uint index);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT rc);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int w, int h, bool repaint);
+
+        [DllImport("kernel32")]
+        private static extern IntPtr GetStdHandle(StdHandle index);
+
+        [DllImport("kernel32")]
+        private static extern bool GetConsoleFontInfo(
+            IntPtr hOutput,
+            [MarshalAs(UnmanagedType.Bool)]bool bMaximize,
+            uint count,
+            [MarshalAs(UnmanagedType.LPArray), Out] ConsoleFont[] fonts);
+
+        [DllImport("kernel32")]
+        private static extern uint GetNumberOfConsoleFonts();
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         private struct ConsoleFont

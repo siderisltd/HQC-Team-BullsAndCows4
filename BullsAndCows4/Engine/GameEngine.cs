@@ -10,9 +10,9 @@
     public sealed class GameEngine : IGameEngine, IDisposable
     {
         private const int PlayersCount = 2;
-
-        public readonly IMessageLogger Logger;
         private readonly ICommandManager commandManager;
+
+        private IMessageLogger logger;
         private IEnumerable<IPlayer> players;
 
         public GameEngine(IEnumerable<IPlayer> players, ICommandManager commandManager, GameType mode, IMessageLogger logger)
@@ -22,6 +22,19 @@
             this.Players = players;
             this.Mode = mode;
             this.Logger = logger;
+        }
+
+        public IMessageLogger Logger
+        {
+            get
+            {
+                return this.logger;
+            }
+
+            private set
+            {
+                this.logger = value;
+            }
         }
 
         public IEnumerable<IPlayer> Players
@@ -44,7 +57,7 @@
 
         public void StartGame()
         {
-            Console.Clear();
+           this.Logger.ClearAllPreviousMessages();
             int playerNumber = 0;
             ////TODO: implement differentBehaviours on game modes...
 
@@ -93,7 +106,6 @@
 
             if (count != PlayersCount)
             {
-                //throw new ArgumentException("Players must be exactly 2");
                 BullsAndCowsException.PlayerCountException(PlayersCount);
             }
         }

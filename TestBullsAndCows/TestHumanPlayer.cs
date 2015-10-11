@@ -1,12 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BullsAndCowsGame.Models;
-
-namespace TestBullsAndCows
+﻿namespace TestBullsAndCows
 {
+    using System;
+    using BullsAndCowsGame.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// Tests for Human Player
+    /// </summary>
     [TestClass]
     public class TestHumanPlayer
     {
+        /// <summary>
+        /// Tests if creating new human player works.
+        /// </summary>
         [TestMethod]
         public void TestCreateNewHumanPlayer()
         {
@@ -16,6 +22,9 @@ namespace TestBullsAndCows
             Assert.AreEqual(0, humanPlayer.Attempts);
         }
 
+        /// <summary>
+        /// Tests if method GetSecretNumber of class HumanPlayer works correctly.
+        /// </summary>
         [TestMethod]
         public void TestHumanPlayerGetSecretNumber()
         {
@@ -24,6 +33,9 @@ namespace TestBullsAndCows
             Assert.AreEqual("2345", humanPlayer.GetSecretNumber);
         }
 
+        /// <summary>
+        /// Tests if creating HumanPlayer with invalid name throws exception.
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestHumanPlayerWithInvalidName()
@@ -31,6 +43,9 @@ namespace TestBullsAndCows
             Player humanPlayer = new HumanPlayer(null, "2345");
         }
 
+        /// <summary>
+        /// Tests if method CompareTo of class HumanPlayer works correctly.
+        /// </summary>
         [TestMethod]
         public void TestHumanPlayerCompareTo()
         {

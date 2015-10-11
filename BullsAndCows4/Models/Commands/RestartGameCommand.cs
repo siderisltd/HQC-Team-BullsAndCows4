@@ -14,8 +14,7 @@
         private void RestartGame(IGameEngine engine)
         {
             engine.Dispose();
-            var engineAsGameEngine = engine as GameEngine;
-            engineAsGameEngine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.StartingNewGame);
+            engine.Logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.StartingNewGame);
             engine.StartGame();
 
             ////pri restart trqbva da se napravi prototypePattern i s observer da se zakachim 

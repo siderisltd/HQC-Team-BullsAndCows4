@@ -61,18 +61,18 @@
         {
             if (item.CompareTo(this.data[this.maxCountOfStoredData - 1]) >= 0)
             {
-                int tPointer = 0;
-                while (item.CompareTo(this.data[tPointer]) < 0)
+                int pointerT = 0;
+                while (item.CompareTo(this.data[pointerT]) < 0)
                 {
-                    tPointer++;
+                    pointerT++;
                 }
 
-                for (int i = this.maxCountOfStoredData - 1; i > tPointer; i--)
+                for (int i = this.maxCountOfStoredData - 1; i > pointerT; i--)
                 {
                     this.data[i] = this.data[i - 1];
                 }
 
-                this.data[tPointer] = item;
+                this.data[pointerT] = item;
                 if (this.count < this.maxCountOfStoredData)
                 {
                     this.count++;

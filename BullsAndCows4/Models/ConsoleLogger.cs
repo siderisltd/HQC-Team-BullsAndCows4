@@ -24,5 +24,10 @@
         {
             return Console.ReadKey(intercept);
         }
+
+        public void ClearAllPreviousMessages()
+        {
+            Console.Clear();
+        }
     }
 }

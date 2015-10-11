@@ -11,5 +11,7 @@
         string ReadMessage();
 
         ConsoleKeyInfo ReadKey(bool intercept);
+
+        void ClearAllPreviousMessages();
     }
 }

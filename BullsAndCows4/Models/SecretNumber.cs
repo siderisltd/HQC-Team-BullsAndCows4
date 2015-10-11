@@ -1,8 +1,8 @@
 ﻿namespace BullsAndCowsGame.Models
 {
-    using Interfaces;
     using System;
     using System.Text;
+    using Interfaces;
 
     public class SecretNumber
     {
@@ -38,24 +38,24 @@
                 }
             }
 
-            secretNumber = numberBuilder.ToString();
+            this.secretNumber = numberBuilder.ToString();
 
-            return secretNumber;
+            return this.secretNumber;
         }
 
         public string EnterSecretNumber()
         {
-            logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterSecretNumberMessage);
+            this.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterSecretNumberMessage);
             string secretNumber = string.Empty;
             ConsoleKeyInfo key;
 
             do
             {
-                key = logger.ReadKey(true);
+                key = this.logger.ReadKey(true);
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     secretNumber += key.KeyChar;
-                    logger.LogMessageOnSameLine("*");
+                    this.logger.LogMessageOnSameLine("*");
                 }
 
                 if (key.Key == ConsoleKey.Backspace)
@@ -63,20 +63,19 @@
                     if (secretNumber.Length > 0)
                     {
                         secretNumber = secretNumber.Substring(0, secretNumber.Length - 1);
-                        logger.LogMessageOnSameLine("\b \b");
+                        this.logger.LogMessageOnSameLine("\b \b");
                     }
                 }
             }
-
             while (key.Key != ConsoleKey.Enter);
 
-            logger.LogMessageAndGoNextLine(string.Empty);
+            this.logger.LogMessageAndGoNextLine(string.Empty);
 
             var isValidSecretNumber = Validator.IsValidNumberGuess(secretNumber);
             ////Go recursive to EnterSecretNumber if the number is not correct
             if (!isValidSecretNumber)
             {
-                EnterSecretNumber();
+                this.EnterSecretNumber();
             }
 
             return secretNumber;

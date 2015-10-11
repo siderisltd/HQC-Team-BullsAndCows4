@@ -47,14 +47,13 @@
             if (isValidCommand)
             {
                 ICommand command = this.commands[userCommandToLower];
-                //TODO: Unreveal hidden dependensy of game engine - get it from commandManager constructor
                 command.ProcessCommand(this.Engine);
             }
             else
             {
                 this.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.InvalidCommand);
                 this.logger.LogMessageAndGoNextLine(Resources.GameMessagesResources.EnterInputNumberOrCommand);
-                var newCommand = logger.ReadMessage();
+                var newCommand = this.logger.ReadMessage();
                 this.ProcessCommand(newCommand, player);
             }
         }

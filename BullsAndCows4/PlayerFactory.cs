@@ -36,7 +36,6 @@ namespace BullsAndCowsGame
                     players.Add(secondPlayer);
                     break;
                 default:
-                    //throw new ArgumentException("Invalid game type");
                     BullsAndCowsException.GameTypeException();
                     break;
             }
